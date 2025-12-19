@@ -2,7 +2,7 @@
 
 [My Notes](notes.md)
 
-This will eventually be a super sweet description on my project, but for now I'm just editing this line for the github deliverable
+This will eventually be a super sweet description on my project, but for now I'm just editing this line for the github deliverable. Whoops, I screwed up the order, so here's another commit from the web interface.
 
 
 > [!NOTE]
