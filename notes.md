@@ -9,6 +9,10 @@ I've made an edit!
 - [Canvas](https://byu.instructure.com)
 - [MDN](https://developer.mozilla.org)
 
+## Github ##
+
+I've used github extensively before, but I've never used markdown. It was really cool to see how you can use markdown to make your readme look more professional!
+
 ## AWS
 
 My IP address is: 54.81.96.130
