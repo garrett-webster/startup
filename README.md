@@ -40,8 +40,13 @@ I am going to use the required technologies in the following ways.
 - **HTML** - Layout Whenify, providing the structure of the website. The most complicated components will be the table for inputing availability (whose cells will be check boxes, eventually stylized to look like full boxes), and the chat box
 - **CSS** - CSS will be used for spacing and for color. For example, depending on what your selection is at any time, the cells will need to be either red or green.
 - **React** - React forms the basis of how the content is actually delivered. Many parts of Whenify are repeated (such as the cells in teh table and the chat messages). React will allow me to template these out and reuse them. It also will allow for the easy creation of new chat messages in a realtime way.
-- **Service** - The backend is primarily for acting as a middle man between the database and the front end. The only real compuation it is doing is to 1) get weather data based off the logitude and latitude of the event 2) generate urls for each Whenify and 3) tabulate the results. The weather data is used to show when it is likely to rain at the location of the event.
-- **DB/Login** - The database stores entries for each Whenify (including the name of the event, who created it, and location), as well as the avaialbilities of each person that fills out the Whenify.
+- **Service** - The backend has the or uses the following endpoints
+  * Get weather data based off the logitude and latitude of the event using the open meteo api
+  * Create a new Whenify
+  * Submit results for a Whenify user
+  * Get the results of a Whenify (shows tabulated results for all users)
+  * Websocket "endpoints" for chatting
+- **DB** - The database stores entries for each Whenify (including the name of the event, who created it, and location), as well as the avaialbilities of each person that fills out the Whenify.
 - **WebSocket** - Websocket is used to provide a real time chat between the users.
 
 ## 🚀 AWS deliverable
