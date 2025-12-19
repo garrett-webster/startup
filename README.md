@@ -29,7 +29,7 @@ The layout to enter in your availability when you have received a Whenify link.
 
 - Create new Whenify with a title and unique link
 - Enter in your availability, signed with your name
-- Ability to
+- See when it is likely to rain based off of live weather data for the event's location
 - See who has put in their availability
 - Chat in realtime as you plan
 
