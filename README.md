@@ -23,7 +23,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Each of us have, at one point or another, been trying to schedule a time to get something done with others. Maybe you and your friends want to get together for lunch, or maybe you and some colleagues need to meet to collaborate on a project. Everytime you say "well, there's only a few of us, so finding a time should be easy!" But, as you are well aware, it rarely is easy. Introducing Whenify, the easy, collaborative solution to winning scheduling! Whenify allows you and your group to easily input when each of you are available and helps choose the best time for the group. If your event is outside, it will even help you plan around the weather!
 
 ### Design
 
