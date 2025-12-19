@@ -18,14 +18,18 @@ Each of us have, at one point or another, been trying to schedule a time to get 
 
 ### Design
 
-![Design image](Mockup.png)
+![Enter availability mock up](Mockup.png)
 
+The layout to enter in your availability when you have received a Whenify link. 
+
+![View results mock up](Mockup2.png)
 The layout to enter in your availability when you have received a Whenify link. 
 
 ### Key features
 
 - Create new Whenify with a title and unique link
 - Enter in your availability, signed with your name
+- Ability to
 - See who has put in their availability
 - Chat in realtime as you plan
 
@@ -36,7 +40,7 @@ I am going to use the required technologies in the following ways.
 - **HTML** - Layout Whenify, providing the structure of the website. The most complicated components will be the table for inputing availability (whose cells will be check boxes, eventually stylized to look like full boxes), and the chat box
 - **CSS** - CSS will be used for spacing and for color. For example, depending on what your selection is at any time, the cells will need to be either red or green.
 - **React** - React forms the basis of how the content is actually delivered. Many parts of Whenify are repeated (such as the cells in teh table and the chat messages). React will allow me to template these out and reuse them. It also will allow for the easy creation of new chat messages in a realtime way.
-- **Service** - The backend is primarily for acting as a middle man between the database and the front end. The only real compuation it is doing is to 1) get weather data 2) generate urls for each Whenify and 3) tabulate the results.
+- **Service** - The backend is primarily for acting as a middle man between the database and the front end. The only real compuation it is doing is to 1) get weather data based off the logitude and latitude of the event 2) generate urls for each Whenify and 3) tabulate the results. The weather data is used to show when it is likely to rain at the location of the event.
 - **DB/Login** - The database stores entries for each Whenify (including the name of the event, who created it, and location), as well as the avaialbilities of each person that fills out the Whenify.
 - **WebSocket** - Websocket is used to provide a real time chat between the users.
 
