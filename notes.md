@@ -20,6 +20,8 @@ Went smoothly. I've known most of this somewhat academically, but if you had ask
 
 Maybe the one thing I hadn't thought about was the idea of an elastic IP address. Is that just an AWS thing? It would make sense since we're doing this through EC2, in which the E stands for "Elastic".
 
+"Let's Encrpyt" allows for the free generation of TLS certificates. Caddy uses this to automatically generate certificates when needed.
+
 ## Caddy
 
 No problems worked just like it said in the [instruction](https://github.com/webprogramming260/.github/blob/main/profile/webServers/https/https.md).
