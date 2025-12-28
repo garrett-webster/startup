@@ -15,8 +15,10 @@ I've used github extensively before, but I've never used markdown. It was really
 
 ## AWS
 
-My IP address is: 54.81.96.130
-Launching my AMI I initially put it on a private subnet. Even though it had a public IP address and the security group was right, I wasn't able to connect to it.
+My IP address is: [54.81.96.130](http://52.5.43.141/)
+Went smoothly. I've known most of this somewhat academically, but if you had asked me to do any of it (other than perhaps purchasing a domain name) I wouldn't really have been able to do it. I also hadn't really thought about how a domain name and an IP aren't intrinsically linked. Doing that through route 53 was interesting. 
+
+Maybe the one thing I hadn't thought about was the idea of an elastic IP address. Is that just an AWS thing? It would make sense since we're doing this through EC2, in which the E stands for "Elastic".
 
 ## Caddy
 
