@@ -14,40 +14,44 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Each of us have, at one point or another, been trying to schedule a time to get something done with others. Maybe you and your friends want to get together for lunch, or maybe you and some colleagues need to meet to collaborate on a project. Everytime you say "well, there's only a few of us, so finding a time should be easy!" But, as you are well aware, it rarely is easy. Introducing Whenify, the easy, collaborative solution to winning scheduling! Whenify allows you and your group to easily input when each of you are available and helps choose the best time for the group. If your event is outside, it will even help you plan around the weather!
+Each of us have, at one point or another, been trying to schedule a time to get something done with others. Maybe you and your friends want to get together for lunch, or maybe you and some colleagues need to meet to collaborate on a project. Everytime you say "well, there's only a few of us, so finding a time should be easy!" But, as you are well aware, it rarely is easy. Introducing Whenify, the easy, collaborative solution to win scheduling! Whenify allows you and your group to easily input when each of you are available and helps choose the best time for the group. If your event is outside, it will even help you plan around the weather!
 
 ### Design
 
 ![Enter availability mock up](Mockup.png)
 
-The layout to enter in your availability when you have received a Whenify link. 
+The layout to enter in your availability and indicate your availability for other's proposals
 
-![View results mock up](Mockup2.png)
-The layout to enter in your availability when you have received a Whenify link. 
+![View results mock up](Mockup4.png)
+The layout to edit the whenify (must be an authorized user)
+
+![Registration mock up](Mockup2.png)
+The registration page
+
+![Login mock up](Mockup3.png)
+The login page
 
 ### Key features
 
-- Create new Whenify with a title and unique link
 - Enter in your availability, signed with your name
-- See when it is likely to rain based off of live weather data for the event's location
 - See who has put in their availability
-- Chat in realtime as you plan
+- Indicate which options work for you
+- See when it is likely to rain based off of live weather data for the event's location
+- See votes for times in real time
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Layout Whenify, providing the structure of the website. The most complicated components will be the table for inputing availability (whose cells will be check boxes, eventually stylized to look like full boxes), and the chat box
-- **CSS** - CSS will be used for spacing and for color. For example, depending on what your selection is at any time, the cells will need to be either red or green.
-- **React** - React forms the basis of how the content is actually delivered. Many parts of Whenify are repeated (such as the cells in teh table and the chat messages). React will allow me to template these out and reuse them. It also will allow for the easy creation of new chat messages in a realtime way.
+- **HTML** - Layout Whenify, providing the structure of the website. The most complicated components will be the times as they will need to handle websocket connection and will be very dynamic.
+- **CSS** - CSS will be used for general styling.
+- **React** - React forms the basis of how the content is actually delivered. All of the times will be their own components, which will have a lot of dynamic content that will have to be gnerated and updated. React will allow me to template these out and reuse them.
 - **Service** - The backend has the or uses the following endpoints
   * Get weather data based off the logitude and latitude of the event using the open meteo api
-  * Create a new Whenify
   * Submit results for a Whenify user
-  * Get the results of a Whenify (shows tabulated results for all users)
-  * Websocket "endpoints" for chatting
+  * Get, tablulate, and store the results of a Whenify in real time
 - **DB** - The database stores entries for each Whenify (including the name of the event, who created it, and location), as well as the avaialbilities of each person that fills out the Whenify.
-- **WebSocket** - Websocket is used to provide a real time chat between the users.
+- **WebSocket** - Websocket is used to provide real time vote information and populating the list of proposed times as they are proposed.
 
 ## 🚀 AWS deliverable
 
