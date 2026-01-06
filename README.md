@@ -36,7 +36,7 @@ The login page
 - Enter in your availability, signed with your name
 - See who has put in their availability
 - Indicate which options work for you
-- See when it is likely to rain based off of live weather data for the event's location
+- See likely likely weather based off of live weather data for the event's location
 - See votes for times in real time
 
 ### Technologies
