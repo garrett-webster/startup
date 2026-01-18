@@ -63,15 +63,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [X] **HTML pages** - Created the four pages that are needed
+- [X] **Proper HTML element usage** - Used appropriate tags, such as nav, main, and footer.
+- [X] **Links** - The header (not currently styled as such because it is an a tag) on each page links to the main page. Includes a link from the main page to the edit page.
+- [X] **Text** - Placeholder values used for values in the times, votes, description, etc. There is very, very minimal text that will not be populated from user data.
+- [X] **3rd party API placeholder** - The weather icons are determined based on info gotten from a 3rd party weather data api.
+- [X] **Images** - Weather icons showing what the expected weather is for that time and date.
+- [X] **Login placeholder** - A form that allows a user to login. The name of the logged in user is displayed in the nav, as well as a logout button
+- [X] **DB data placeholder** - In addition to registration and authentication information, all of the time and date, vote, and description data is stored in the database. Place-holder data for all of these have been added.
+- [X] **WebSocket placeholder** - New proposed times and votes are populated from websocket. The new time input sends via websocket.
 
 ## 🚀 CSS deliverable
 
