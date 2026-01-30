@@ -32,49 +32,96 @@
 
 <main>
     <div id="times">
-        <div class="time-box">
-            <div class="time-info-box">
-                <p class="nameLabel">Jenny Jensen</p>
-                <p class="dateLabel">Thursday, July 23rd</p>
-                <p class="timeLabel"> 2 PM</p>
-            </div>
-            <img src="resources/rainIcon.png" alt="rain cloud" class="weather-icon">
-            <div class="voting-box">
-                <div class="voting-row">
-                    <button class="voting-btn voting-row-element">Yes</button>
-                    <p class="vote-total-display voting-row-element">3</p>
+        <div id="time-boxes">
+            <div class="time-box">
+                <div class="time-info-box">
+                    <p class="nameLabel">Jenny Jensen</p>
+                    <p class="dateLabel">Thursday, July 23rd</p>
+                    <p class="timeLabel"> 2 PM</p>
                 </div>
-                <div class="voting-row">
-                    <button class="voting-btn voting-row-element">No</button>
-                    <p class="vote-total-display voting-row-element">1</p>
-                </div>
-            </div>
-        </div>
-        <div class="time-box">
-            <div class="time-info-box">
-                <p class="nameLabel">Isaac Scott</p>
-                <p class="dateLabel">Sunday, July 26th</p>
-                <p class="timeLabel"> 5 PM</p>
-            </div>
-            <img src="resources/sunIcon.png" alt="sunny" class="weather-icon">
-            <div class="voting-box">
-                <div class="voting-row">
-                    <button class="voting-btn voting-row-element">Yes</button>
-                    <p class="vote-total-display voting-row-element">7</p>
-                </div>
-                <div class="voting-row">
-                    <button class="voting-btn voting-row-element">No</button>
-                    <p class="vote-total-display voting-row-element">4</p>
+                <div class="time-box-right">
+                    <div class="voting-box">
+                        <div class="voting-row">
+                            <button class="voting-btn voting-row-element">Yes</button>
+                            <p class="vote-total-display voting-row-element">3</p>
+                        </div>
+                        <div class="voting-row">
+                            <button class="voting-btn voting-row-element">No</button>
+                            <p class="vote-total-display voting-row-element">1</p>
+                        </div>
+                    </div>
+                    <img src="resources/rainIcon.png" alt="rain cloud" class="weather-icon">
                 </div>
             </div>
+            <div class="time-box">
+                <div class="time-info-box">
+                    <p class="nameLabel">Isaac Scott</p>
+                    <p class="dateLabel">Sunday, July 26th</p>
+                    <p class="timeLabel"> 5 PM</p>
+                </div>
+                <div class="time-box-right">
+                    <img src="resources/sunIcon.png" alt="sunny" class="weather-icon">
+                    <div class="voting-box">
+                        <div class="voting-row">
+                            <button class="voting-btn voting-row-element">Yes</button>
+                            <p class="vote-total-display voting-row-element">7</p>
+                        </div>
+                        <div class="voting-row">
+                            <button class="voting-btn voting-row-element">No</button>
+                            <p class="vote-total-display voting-row-element">4</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--            <div class="time-box">-->
+<!--                <div class="time-info-box">-->
+<!--                    <p class="nameLabel">Isaac Scott</p>-->
+<!--                    <p class="dateLabel">Sunday, July 26th</p>-->
+<!--                    <p class="timeLabel"> 5 PM</p>-->
+<!--                </div>-->
+<!--                <div class="time-box-right">-->
+<!--                    <img src="resources/sunIcon.png" alt="sunny" class="weather-icon">-->
+<!--                    <div class="voting-box">-->
+<!--                        <div class="voting-row">-->
+<!--                            <button class="voting-btn voting-row-element">Yes</button>-->
+<!--                            <p class="vote-total-display voting-row-element">7</p>-->
+<!--                        </div>-->
+<!--                        <div class="voting-row">-->
+<!--                            <button class="voting-btn voting-row-element">No</button>-->
+<!--                            <p class="vote-total-display voting-row-element">4</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="time-box">-->
+<!--                <div class="time-info-box">-->
+<!--                    <p class="nameLabel">Isaac Scott</p>-->
+<!--                    <p class="dateLabel">Sunday, July 26th</p>-->
+<!--                    <p class="timeLabel"> 5 PM</p>-->
+<!--                </div>-->
+<!--                <div class="time-box-right">-->
+<!--                    <img src="resources/sunIcon.png" alt="sunny" class="weather-icon">-->
+<!--                    <div class="voting-box">-->
+<!--                        <div class="voting-row">-->
+<!--                            <button class="voting-btn voting-row-element">Yes</button>-->
+<!--                            <p class="vote-total-display voting-row-element">7</p>-->
+<!--                        </div>-->
+<!--                        <div class="voting-row">-->
+<!--                            <button class="voting-btn voting-row-element">No</button>-->
+<!--                            <p class="vote-total-display voting-row-element">4</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
 
-        <div id="newTime">
-            <label for="dateInput">Date</label> <input id = "dateInput" type="text">
-            <label for="timeInput">Time</label> <input id = "timeInput" type="text">
-            <input type="submit" value="Submit">
+        <div id="new-time">
+            <label for="dateInput">Date</label> <input id = "dateInput" type="date">
+            <label for="timeInput">Time</label> <input id = "timeInput" type="time">
+            <input type="submit" value="Submit" style="margin-top: 5px;">
         </div>
     </div>
+
     <div id="eventInfoContainer">
         <p id="eventTitle">Hike the Y</p>
         <p id="organizerName">Organized by Carol Binsen</p>
