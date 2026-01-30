@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+.votingRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.voting-row-element {
+    border: 1px black solid;
+    border-radius: 7px;
+    font-size: 20px;
+}
+
+.voting-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-box {
+    display: flex;
+    flex-direction: row;
+    border: black 2px solid;
+    border-radius: 10px;
+}
