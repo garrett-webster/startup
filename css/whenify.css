@@ -8,12 +8,27 @@ main {
     flex-direction: row;
 }
 
-.votingRow {
+.voting-row {
     display: flex;
     flex-direction: row;
+    align-items: stretch;
+    margin: 2px;
+}
+
+.voting-btn {
+    flex:1;
+    transition: background-color 0.3s ease;
+}
+
+.voting-btn:hover {
+    background-color: #d0e1ff; /* soft blue hover */
+    cursor: pointer; /* optional */
 }
 
 .voting-row-element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 1px black solid;
     border-radius: 7px;
     font-size: 20px;
@@ -24,9 +39,27 @@ main {
     flex-direction: column;
 }
 
-.time-box {
+.vote-total-display {
+    margin: 0;
+    padding: 5px;
+}
+
+.time-info-box {
     display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+    width: 200px;
+}
+
+.time-box {
+    display: inline-flex;
     flex-direction: row;
     border: black 2px solid;
     border-radius: 10px;
+    padding: 5px;
+}
+
+.weather-icon {
+    width: 50px;
+    height: 50px;
 }
