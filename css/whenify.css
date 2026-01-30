@@ -5,11 +5,25 @@
 body {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+}
+
+html, body{
+    height: 100%;
+    margin: 0;
 }
 
 main {
+    flex: 1;
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
+}
+
+@media (max-width: 850px) {
+    main {
+        flex-direction: column;
+    }
 }
 
 .voting-row {
@@ -76,7 +90,7 @@ main {
 
 #new-time {
     display: flex;
-    flex: 1;
+    flex: 0 1 auto;
     flex-direction: column;
     padding: 5px;
     border-top: 2px black solid;
@@ -85,13 +99,14 @@ main {
 #times {
     display: flex;
     flex-direction: column;
+    flex: 0 1 auto;
     gap: 5px;
     border: 2px black solid;
     border-radius: 7px;
     margin: 10px;
     max-height: 80vh;
     overflow-y: auto;
-    min-width: 20vw;
+    min-width: 225px;
 }
 
 #time-boxes::-webkit-scrollbar {
@@ -114,4 +129,34 @@ main {
     overflow-x: hidden;
     flex-direction: column;
     gap: 10px;
+}
+
+#event-info-container {
+    flex: 5;
+    border: 2px black solid;
+    border-radius: 7px;
+    margin: 10px;
+    max-height: 80vh;
+    overflow-y: auto;
+    min-width: 150px;
+    padding: 5px;
+}
+
+#left-padding {
+    flex: 1;
+}
+#right-padding {
+    flex: 1;
+}
+#middle-padding {
+    flex: 1;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
 }
