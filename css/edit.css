@@ -1,0 +1,72 @@
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+.padding {
+    flex: 2;
+}
+
+#edit-box {
+    margin-top: 50px;
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 7px;
+    padding: 10px 10px 40px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+html, body{
+    height: 100%;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+}
+
+#form-element-container {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-column textarea {
+    flex: 1;
+    min-height: 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-column input {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 0.5rem 0.75rem;
+}
