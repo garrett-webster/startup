@@ -77,12 +77,13 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Header, footer, and main content body** - I did not complete this part of the deliverable.
-- [ ] **Navigation elements** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing** - I did not complete this part of the deliverable.
-- [ ] **Application elements** - I did not complete this part of the deliverable.
-- [ ] **Application text content** - I did not complete this part of the deliverable.
-- [ ] **Application images** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] **Visually appealing colors and layout. No overflowing elements.** - I'm definitely not a UI designer, but I'm pretty happy with how the layout itself turned out!
+- [x] **Use of a CSS framework** - Using bootstrap, especially for the nav bar.
+- [x] **All visual elements styled using CSS** - Yep!
+- [x] **Responsive to window resizing using flexbox and/or grid display** - Looks great on different window sizes and devices, on the main page it changes the display of the main content to stack if the screen gets too small.
+- [x] **Use of a imported font** - Knewave for the logo in the header
+- [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - Yes, in various ways.
 
 ## 🚀 React part 1: Routing deliverable
 
