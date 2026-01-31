@@ -1,0 +1,36 @@
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+.padding {
+    flex: 2;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 10px;
+}
+
+.field input {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 0.5rem 0.75rem;
+}
+
+form a {
+    display: block;
+}
+
+.credentials-box {
+    margin-top: 50px;
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 7px;
+    padding: 10px 10px 40px;
+}
