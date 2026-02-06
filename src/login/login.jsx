@@ -18,7 +18,7 @@ export function Login() {
                         <input type="text" id="password" placeholder="Your password"/>
                     </label>
                     <input type="submit" value="Login"/>
-                    <NavLink to="register">Create account</NavLink>
+                    <NavLink to="/register">Create account</NavLink>
                 </form>
 
             </div>
