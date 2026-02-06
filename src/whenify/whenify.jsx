@@ -14,6 +14,7 @@ export function Whenify() {
                             <p className="timeLabel"> 2 PM</p>
                         </div>
                         <div className="time-box-right">
+                            <img src="/rainIcon.png" alt="rain cloud" className="weather-icon"/>
                             <div className="voting-box">
                                 <div className="voting-row">
                                     <button className="voting-btn voting-row-element">Yes</button>
@@ -24,7 +25,6 @@ export function Whenify() {
                                     <p className="vote-total-display voting-row-element">1</p>
                                 </div>
                             </div>
-                            <img src="/rainIcon.png" alt="rain cloud" className="weather-icon"/>
                         </div>
                     </div>
                     <div className="time-box">
