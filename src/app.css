@@ -38,3 +38,7 @@ footer {
 .body {
     flex: 1;
 }
+
+.content {
+    flex: 1;
+}

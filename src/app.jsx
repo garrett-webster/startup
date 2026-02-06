@@ -33,13 +33,15 @@ export default function App() {
                     </nav>
                 </header>
 
-                <Routes>
-                    <Route path='/' element={<Whenify />} exact />
-                    <Route path='/edit' element={<Edit />} />
-                    <Route path='/login' element={<Login />} />
-                    <Route path='/register' element={<Register />} />
-                    <Route path='*' element={<NotFound />} />
-                </Routes>
+                <main className="content">
+                    <Routes>
+                        <Route path='/' element={<Whenify />} exact />
+                        <Route path='/edit' element={<Edit />} />
+                        <Route path='/login' element={<Login />} />
+                        <Route path='/register' element={<Register />} />
+                        <Route path='*' element={<NotFound />} />
+                    </Routes>
+                </main>
 
                 <footer>
                     <p>By Garrett Webster</p>
