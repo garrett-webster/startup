@@ -39,31 +39,32 @@ Bootstrap seems a bit like magic. It styles things nicely, but is very opinionat
 I did like the navbar it made it super easy to build a responsive header.
 
 ```html
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand">
-            <img src="logo.svg" width="30" height="30" class="d-inline-block align-top" alt="" />
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+            <img src="logo.svg" width="30" height="30" class="d-inline-block align-top" alt=""/>
             Calmer
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" href="play.html">Play</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Logout</a>
-              </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="play.html">Play</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="whenify.html">Logout</a>
+                </li>
             </ul>
-          </div>
         </div>
-      </nav>
-    </header>
+    </div>
+</nav>
+</header>
 ```
 
 I also used SVG to make the icon and logo for the app. This turned out to be a piece of cake.
