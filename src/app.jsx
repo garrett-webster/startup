@@ -2,7 +2,11 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import {BrowserRouter} from "react-router-dom";
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Edit } from './edit/edit';
+import { Login } from './login/login';
+import { Register } from './register/register';
+import { Whenify } from './whenify/whenify';
 
 export default function App() {
     return <BrowserRouter>
@@ -10,7 +14,7 @@ export default function App() {
             <header>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                     <div className="container-fluid">
-                        <a className="navbar-brand fs-3" href="whenify.html">Whenify </a>
+                        <NavLink className="navbar-brand fs-3" to="whenify">Whenify </NavLink>
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -19,8 +23,8 @@ export default function App() {
                                 </a>
 
                                 <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                    <li><a className="dropdown-item" href="edit.html">Edit</a></li>
-                                    <li><a className="dropdown-item" href="login.html">Log out</a></li>
+                                    <li><NavLink className="dropdown-item" to="edit">Edit</NavLink></li>
+                                    <li><NavLink className="dropdown-item" to="login">Log out</NavLink></li>
                                 </ul>
                             </li>
                         </ul>
@@ -28,7 +32,13 @@ export default function App() {
                 </nav>
             </header>
 
-            <div className="body bg-dark text-light">App will display here</div>
+            <Routes>
+                <Route path='/' element={<Whenify />} exact />
+                <Route path='/edit' element={<Edit />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='*' element={<NotFound />} />
+            </Routes>
 
             <footer>
                 <p>By Garrett Webster</p>
@@ -36,4 +46,8 @@ export default function App() {
             </footer>
         </div>
     </BrowserRouter>;
+}
+
+function NotFound() {
+    return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
 }
