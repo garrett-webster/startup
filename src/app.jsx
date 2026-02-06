@@ -15,7 +15,7 @@ export default function App() {
                 <header>
                     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                         <div className="container-fluid">
-                            <NavLink className="navbar-brand fs-3" to="whenify">Whenify </NavLink>
+                            <NavLink className="navbar-brand fs-3" to="/">Whenify </NavLink>
                             <ul className="navbar-nav ms-auto">
                                 <li className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
