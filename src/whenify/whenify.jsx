@@ -1,5 +1,6 @@
 import React from 'react';
 import './whenify.css';
+import { TimeBox} from "./timeBox";
 
 export function Whenify() {
     return (
@@ -7,26 +8,12 @@ export function Whenify() {
             <div id="left-padding"></div>
             <div id="times">
                 <div id="time-boxes">
-                    <div className="time-box">
-                        <div className="time-info-box">
-                            <p className="nameLabel">Jenny Jensen</p>
-                            <p className="dateLabel">Thursday, July 23rd</p>
-                            <p className="timeLabel"> 2 PM</p>
-                        </div>
-                        <div className="time-box-right">
-                            <img src="/rainIcon.png" alt="rain cloud" className="weather-icon"/>
-                            <div className="voting-box">
-                                <div className="voting-row">
-                                    <button className="voting-btn voting-row-element">Yes</button>
-                                    <p className="vote-total-display voting-row-element">3</p>
-                                </div>
-                                <div className="voting-row">
-                                    <button className="voting-btn voting-row-element">No</button>
-                                    <p className="vote-total-display voting-row-element">1</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <TimeBox
+                    name = "Jenny Jensen"
+                    date = "Thursday, July 23rd"
+                    time = "2 PM"
+                    yesVotes = {3}
+                />
                     <div className="time-box">
                         <div className="time-info-box">
                             <p className="nameLabel">Isaac Scott</p>
