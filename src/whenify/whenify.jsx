@@ -10,8 +10,7 @@ export function Whenify() {
                 <div id="time-boxes">
                 <TimeBox
                     name = "Jenny Jensen"
-                    date = "Thursday, July 23rd"
-                    time = "2 PM"
+                    dateTime = { new Date("2026-07-23T14:00:00") }
                     yesVotes = {3}
                 />
                     <div className="time-box">
