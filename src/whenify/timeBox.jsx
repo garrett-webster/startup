@@ -1,7 +1,7 @@
 import React from 'react';
 import './whenify.css';
 
-export function TimeBox({ name, dateTime, yesVotes = 0, noVotes = 0, yesChecked = false, noChecked = false }) {
+export function TimeBox({ id, handleVote, name, dateTime, yesVotes = 0, noVotes = 0, yesChecked = false, noChecked = false }) {
     const date = dateTime.toLocaleDateString(undefined, {
         weekday: "long",
         month: "long",
@@ -23,11 +23,17 @@ export function TimeBox({ name, dateTime, yesVotes = 0, noVotes = 0, yesChecked 
                 <img src="/rainIcon.png" alt="rain cloud" className="weather-icon"/>
                 <div className="voting-box">
                     <div className="voting-row">
-                        <button className="voting-btn voting-row-element">Yes</button>
+                        <button
+                            className="voting-btn voting-row-element"
+                            onClick={() => handleVote(id, "yes")}
+                        >Yes</button>
                         <p className="vote-total-display voting-row-element">{ yesVotes }</p>
                     </div>
                     <div className="voting-row">
-                        <button className="voting-btn voting-row-element">No</button>
+                        <button
+                            className="voting-btn voting-row-element"
+                            onClick={() => handleVote(id, "no")}
+                        >No</button>
                         <p className="vote-total-display voting-row-element">{ noVotes }</p>
                     </div>
                 </div>

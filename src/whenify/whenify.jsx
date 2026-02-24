@@ -15,6 +15,56 @@ export function Whenify() {
         }
     ])
 
+    const handleVote = function(id, type) {
+        setTimeBoxes(previous => (
+            previous.map(val => {
+                if (val.id !== id) return val;
+                let yesVotes = val.yesVotes;
+                let noVotes = val.noVotes;
+                let yesChecked = val.yesChecked;
+                let noChecked = val.noChecked;
+
+                if (type === "yes") {
+                    if (yesChecked) {
+                        yesVotes -= 1;
+                        yesChecked = false;
+                    } else {
+                        yesVotes += 1;
+                        yesChecked = true;
+
+                        if (noChecked) {
+                            noVotes -= 1;
+                            noChecked = false;
+                        }
+                    }
+                }
+
+                if (type === "no") {
+                    if (noChecked) {
+                        noVotes -= 1;
+                        noChecked = false;
+                    } else {
+                        noVotes += 1;
+                        noChecked = true;
+
+                        if (yesChecked) {
+                            yesVotes -= 1;
+                            yesChecked = false;
+                        }
+                    }
+                }
+
+                return ({
+                    ...val,
+                    yesVotes: yesVotes,
+                    noVotes: noVotes,
+                    yesChecked: yesChecked,
+                    noChecked: noChecked
+                })
+            }))
+        )
+    }
+
     return (
         <div id="whenify">
             <div id="left-padding"></div>
@@ -23,6 +73,8 @@ export function Whenify() {
                     {timeBoxes.map(box => (
                         <TimeBox
                             key={box.id}
+                            id={box.id}
+                            handleVote={handleVote}
                             {...box}
                         />
                     ))}
