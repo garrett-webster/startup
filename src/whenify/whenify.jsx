@@ -1,38 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './whenify.css';
 import { TimeBox} from "./timeBox";
 
 export function Whenify() {
+    const [timeBoxes, setTimeBoxes] = useState([
+        {
+            id: 1,
+            name: "Jenny Jensen",
+            dateTime: new Date("2026-07-23T14:00:00"),
+            yesVotes: 3,
+            noVotes: 1,
+            yesChecked: false,
+            noChecked: false
+        }
+    ])
+
     return (
         <div id="whenify">
             <div id="left-padding"></div>
             <div id="times">
                 <div id="time-boxes">
-                <TimeBox
-                    name = "Jenny Jensen"
-                    dateTime = { new Date("2026-07-23T14:00:00") }
-                    yesVotes = {3}
-                />
-                    <div className="time-box">
-                        <div className="time-info-box">
-                            <p className="nameLabel">Isaac Scott</p>
-                            <p className="dateLabel">Sunday, July 26th</p>
-                            <p className="timeLabel"> 5 PM</p>
-                        </div>
-                        <div className="time-box-right">
-                            <img src="/sunIcon.png" alt="sunny" className="weather-icon"/>
-                            <div className="voting-box">
-                                <div className="voting-row">
-                                    <button className="voting-btn voting-row-element">Yes</button>
-                                    <p className="vote-total-display voting-row-element">7</p>
-                                </div>
-                                <div className="voting-row">
-                                    <button className="voting-btn voting-row-element">No</button>
-                                    <p className="vote-total-display voting-row-element">4</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {timeBoxes.map(box => (
+                        <TimeBox
+                            key={box.id}
+                            {...box}
+                        />
+                    ))}
                 </div>
                 <div id="new-time">
                     <label htmlFor="dateInput">Date</label> <input id="dateInput" type="date"/>

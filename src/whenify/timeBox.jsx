@@ -1,7 +1,7 @@
 import React from 'react';
 import './whenify.css';
 
-export function TimeBox({ name, dateTime, yesVotes = 0, noVotes = 0 }) {
+export function TimeBox({ name, dateTime, yesVotes = 0, noVotes = 0, yesChecked = false, noChecked = false }) {
     const date = dateTime.toLocaleDateString(undefined, {
         weekday: "long",
         month: "long",
