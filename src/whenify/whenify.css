@@ -26,6 +26,10 @@ html, body{
     }
 }
 
+.selected-button {
+    background-color: #d0e1ff;
+}
+
 .voting-row {
     display: flex;
     flex-direction: row;

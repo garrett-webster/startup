@@ -24,14 +24,14 @@ export function TimeBox({ id, handleVote, name, dateTime, yesVotes = 0, noVotes 
                 <div className="voting-box">
                     <div className="voting-row">
                         <button
-                            className="voting-btn voting-row-element"
+                            className={`voting-btn voting-row-element ${yesChecked ? 'selected-button' : ''}`}
                             onClick={() => handleVote(id, "yes")}
                         >Yes</button>
                         <p className="vote-total-display voting-row-element">{ yesVotes }</p>
                     </div>
                     <div className="voting-row">
                         <button
-                            className="voting-btn voting-row-element"
+                            className={`voting-btn voting-row-element ${noChecked ? 'selected-button' : ''}`}
                             onClick={() => handleVote(id, "no")}
                         >No</button>
                         <p className="vote-total-display voting-row-element">{ noVotes }</p>
