@@ -78,10 +78,10 @@ export function Whenify() {
 
         const dateTime = new Date(`${dateValue}T${timeValue}`);
 
-        addTimeBox("John John", dateTime, 0, 0, false, false);
+        addTimeBox(dateTime, 0, 0, false, false);
     };
 
-    const addTimeBox = (name, date, yesVotes, noVotes, yesChecked, noChecked, id = crypto.randomUUID()) => {
+    const addTimeBox = (date, yesVotes, noVotes, yesChecked, noChecked, name = localStorage.getItem("name"), id = crypto.randomUUID()) => {
         setTimeBoxes(prevTimeBoxes => [
             ...prevTimeBoxes,
             {
