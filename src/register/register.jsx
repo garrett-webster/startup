@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
 
-export function Register() {
+export function Register({ setUser }) {
     const navigate = useNavigate();
 
     const [name, setName] = useState("");
@@ -26,6 +26,7 @@ export function Register() {
 
         localStorage.setItem("users", JSON.stringify(updated));
         localStorage.setItem("name", name);
+        setUser(name);
 
         navigate("/");
     };

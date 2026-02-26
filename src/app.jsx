@@ -1,16 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import {Navigate, NavLink, Route, Routes} from 'react-router-dom';
 import { Edit } from './edit/edit';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { Whenify } from './whenify/whenify';
 
 export default function App() {
+    const [user, setUser] = useState(localStorage.getItem("name"));
+
     return (
-        <BrowserRouter>
             <div className="page">
                 <header>
                     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -18,15 +19,34 @@ export default function App() {
                             <NavLink className="navbar-brand fs-3" to="/">Whenify </NavLink>
                             <ul className="navbar-nav ms-auto">
                                 <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                        Carol Binsen
-                                    </a>
-
-                                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                        <li><NavLink className="dropdown-item" to="edit">Edit</NavLink></li>
-                                        <li><NavLink className="dropdown-item" to="login">Log out</NavLink></li>
-                                    </ul>
+                                    {user && (
+                                        <>
+                                        <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                            {user}
+                                        </a>
+                                        <ul className="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <NavLink className="dropdown-item" to="edit">
+                                                    Edit
+                                                </NavLink>
+                                            </li>
+                                            <li>
+                                                <NavLink
+                                                    className="dropdown-item"
+                                                    to="login"
+                                                    onClick={() => {
+                                                        localStorage.removeItem("name");
+                                                        setUser(null);
+                                                    }
+                                                }
+                                                >
+                                                    Log out
+                                                </NavLink>
+                                            </li>
+                                        </ul>
+                                        </>
+                                    )}
                                 </li>
                             </ul>
                         </div>
@@ -35,10 +55,10 @@ export default function App() {
 
                 <main className="content">
                     <Routes>
-                        <Route path='/' element={<Whenify />} exact />
-                        <Route path='/edit' element={<Edit />} />
-                        <Route path='/login' element={<Login />} />
-                        <Route path='/register' element={<Register />} />
+                        <Route path="/" element={user ? <Whenify /> : <Navigate to="/login" replace />}/>
+                        <Route path='/edit' element={user ? <Edit /> : <Navigate to="/login" replace />} />
+                        <Route path='/login' element={!user ? <Login setUser = { setUser } /> : <Navigate to="/" replace />} />
+                        <Route path='/register' element={!user ? <Register setUser = { setUser } /> : <Navigate to="/" replace />} />
                         <Route path='*' element={<NotFound />} />
                     </Routes>
                 </main>
@@ -48,7 +68,6 @@ export default function App() {
                     <a href="https://github.com/garrett-webster">My GitHub page</a>
                 </footer>
             </div>
-        </BrowserRouter>
     );
 }
 
