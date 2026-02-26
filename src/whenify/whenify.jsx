@@ -1,19 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './whenify.css';
 import { TimeBox} from "./timeBox";
 
 export function Whenify() {
-    const [timeBoxes, setTimeBoxes] = useState([
-        {
-            id: 1,
-            name: "Jenny Jensen",
-            dateTime: new Date("2026-07-23T14:00:00"),
-            yesVotes: 3,
-            noVotes: 1,
-            yesChecked: false,
-            noChecked: false
+    const [timeBoxes, setTimeBoxes] = useState([])
+    useEffect(() => {
+        const stored = localStorage.getItem("timeBoxes");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            const revived = parsed.map(box => ({
+                ...box,
+                dateTime: new Date(box.dateTime)
+            }));
+            setTimeBoxes(revived);
         }
-    ])
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("timeBoxes", JSON.stringify(timeBoxes));
+    }, [timeBoxes]);
+
+    const [dateValue, setDateValue] = useState("");
+    const [timeValue, setTimeValue] = useState("");
 
     const handleVote = function(id, type) {
         setTimeBoxes(previous => (
@@ -65,6 +73,29 @@ export function Whenify() {
         )
     }
 
+    const handleSubmit = () => {
+        if (!dateValue || !timeValue) return;
+
+        const dateTime = new Date(`${dateValue}T${timeValue}`);
+
+        addTimeBox("John John", dateTime, 0, 0, false, false);
+    };
+
+    const addTimeBox = (name, date, yesVotes, noVotes, yesChecked, noChecked, id = crypto.randomUUID()) => {
+        setTimeBoxes(prevTimeBoxes => [
+            ...prevTimeBoxes,
+            {
+                id: id,
+                name: name,
+                dateTime: date,
+                yesVotes: yesVotes,
+                noVotes: noVotes,
+                yesChecked: yesChecked,
+                noChecked: noChecked
+            }
+        ]);
+    }
+
     return (
         <div id="whenify">
             <div id="left-padding"></div>
@@ -80,9 +111,21 @@ export function Whenify() {
                     ))}
                 </div>
                 <div id="new-time">
-                    <label htmlFor="dateInput">Date</label> <input id="dateInput" type="date"/>
-                    <label htmlFor="timeInput">Time</label> <input id="timeInput" type="time"/>
-                    <input type="submit" value="Submit" style={{ marginTop: '5px' }}/>
+                    <label htmlFor="dateInput">Date</label>
+                    <input
+                        id="dateInput"
+                        type="date"
+                        value={dateValue}
+                        onChange={e => setDateValue(e.target.value)}
+                    />
+                    <label htmlFor="timeInput">Time</label>
+                    <input
+                        id="timeInput"
+                        type="time"
+                        value={timeValue}
+                        onChange={e => setTimeValue(e.target.value)}
+                    />
+                    <input type="submit" value="Submit" style={{ marginTop: '5px' }} onClick={() => handleSubmit()}/>
                 </div>
             </div>
             <div id="middle-padding"></div>
