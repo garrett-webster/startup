@@ -17,7 +17,9 @@ export default function App() {
             : {
                 name: "Event Name",
                 organizer: "Organizer Name",
-                description: "Event Description"
+                description: "Event Description",
+                latitude: 0,
+                longitude: 0
             };
     });
 
@@ -70,7 +72,7 @@ export default function App() {
                 <main className="content">
                     <Routes>
                         <Route path="/" element={user ? <Whenify eventInfo={eventInfo}/> : <Navigate to="/login" replace />}/>
-                        <Route path='/edit' element={user ? <Edit /> : <Navigate to="/login" replace />} />
+                        <Route path='/edit' element={user ? <Edit eventInfo = {eventInfo} setEventInfo = {setEventInfo}/> : <Navigate to="/login" replace />} />
                         <Route path='/login' element={!user ? <Login setUser = { setUser } /> : <Navigate to="/" replace />} />
                         <Route path='/register' element={!user ? <Register setUser = { setUser } /> : <Navigate to="/" replace />} />
                         <Route path='*' element={<NotFound />} />
