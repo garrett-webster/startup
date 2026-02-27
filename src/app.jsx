@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -10,6 +10,20 @@ import { Whenify } from './whenify/whenify';
 
 export default function App() {
     const [user, setUser] = useState(localStorage.getItem("name"));
+    const [eventInfo, setEventInfo] = useState(() => {
+        const stored = localStorage.getItem("eventInfo");
+        return stored
+            ? JSON.parse(stored)
+            : {
+                name: "Event Name",
+                organizer: "Organizer Name",
+                description: "Event Description"
+            };
+    });
+
+    useEffect(() => {
+        localStorage.setItem("eventInfo", JSON.stringify(eventInfo))
+    }, [eventInfo])
 
     return (
             <div className="page">
@@ -55,7 +69,7 @@ export default function App() {
 
                 <main className="content">
                     <Routes>
-                        <Route path="/" element={user ? <Whenify /> : <Navigate to="/login" replace />}/>
+                        <Route path="/" element={user ? <Whenify eventInfo={eventInfo}/> : <Navigate to="/login" replace />}/>
                         <Route path='/edit' element={user ? <Edit /> : <Navigate to="/login" replace />} />
                         <Route path='/login' element={!user ? <Login setUser = { setUser } /> : <Navigate to="/" replace />} />
                         <Route path='/register' element={!user ? <Register setUser = { setUser } /> : <Navigate to="/" replace />} />

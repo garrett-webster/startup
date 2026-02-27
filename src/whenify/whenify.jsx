@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './whenify.css';
 import { TimeBox} from "./timeBox";
 
-export function Whenify() {
+export function Whenify({ eventInfo }) {
     const [timeBoxes, setTimeBoxes] = useState([])
     useEffect(() => {
         const stored = localStorage.getItem("timeBoxes");
@@ -130,10 +130,9 @@ export function Whenify() {
             </div>
             <div id="middle-padding"></div>
             <div id="event-info-container">
-                <p id="eventTitle">Hike the Y</p>
-                <p id="organizerName">Organized by Carol Binsen</p>
-                <p id="description">Hey guys! We're going to go hike the Y but I need to know when you can go. Put a
-                    time when you're available and let us know which times that have been proposed work for you!</p>
+                <p id="eventTitle"> {eventInfo.name}</p>
+                <p id="organizerName">Organized by {eventInfo.organizer}</p>
+                <p id="description">{eventInfo.description}</p>
             </div>
             <div id="right-padding"></div>
         </div>
