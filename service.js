@@ -1,11 +1,16 @@
-let timeBoxes = loadFromStorage();
-let listeners = [];
+let timeBoxes = loadTimeboxesFromStorage();
+let users = JSON.parse(localStorage.getItem("users")) || [];
+let timeBoxListeners = [];
+let usersListeners = [];
 
-function notify() {
-    listeners.forEach(l => l([...timeBoxes]));
+function notifyTimeBox() {
+    timeBoxListeners.forEach(l => l([...timeBoxes]));
+}
+function notifyUsers() {
+    usersListeners.forEach(l => l([...users]));
 }
 
-function loadFromStorage() {
+function loadTimeboxesFromStorage() {
     const stored = localStorage.getItem("timeBoxes");
     if (!stored) return [];
 
@@ -16,23 +21,36 @@ function loadFromStorage() {
     }));
 }
 
-export function subscribe(callback) {
-    listeners.push(callback);
+export function subscribeTimeBoxes(callback) {
+    timeBoxListeners.push(callback);
     callback([...timeBoxes]); // send initial state
 
     return () => {
-        listeners = listeners.filter(l => l !== callback);
+        timeBoxListeners = timeBoxListeners.filter(l => l !== callback);
     };
 }
 
-function save() {
+export function subscribeUsers(callback) {
+    usersListeners.push(callback);
+    callback([...users]); // send initial state
+
+    return () => {
+        usersListeners = usersListeners.filter(l => l !== callback);
+    };
+}
+
+function saveTimeboxes() {
     localStorage.setItem("timeBoxes", JSON.stringify(timeBoxes));
+}
+
+function saveUsers() {
+    localStorage.setItem("users", JSON.stringify(users));
 }
 
 export function addTimeBox(box) {
     timeBoxes.push(box);
-    save();
-    notify();
+    saveTimeboxes();
+    notifyTimeBox();
 }
 
 export function handleVote(id, type) {
@@ -72,6 +90,12 @@ export function handleVote(id, type) {
         return { ...box, yesVotes, noVotes, yesChecked, noChecked };
     });
 
-    save();
-    notify();
+    saveTimeboxes();
+    notifyTimeBox();
+}
+
+export function registerUser(user) {
+    users.push(user);
+    saveUsers();
+    notifyUsers();
 }

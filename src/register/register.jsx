@@ -1,12 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
+import {registerUser, subscribeUsers} from "../../service";
 
-export function Register({ setUser }) {
+export function Register({ setCurrentUser }) {
     const navigate = useNavigate();
 
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [passwordRepeat, setPasswordRepeat] = useState("");
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        return subscribeUsers(setUsers);
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,17 +22,8 @@ export function Register({ setUser }) {
             alert("Passwords do not match");
             return;
         }
-
-        const existing = JSON.parse(localStorage.getItem("users")) || [];
-
-        const updated = [
-            ...existing,
-            { name, password }
-        ];
-
-        localStorage.setItem("users", JSON.stringify(updated));
-        localStorage.setItem("name", name);
-        setUser(name);
+        registerUser({name: name, password: password})
+        setCurrentUser(name);
 
         navigate("/");
     };

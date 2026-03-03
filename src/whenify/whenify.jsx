@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './whenify.css';
 import {TimeBox} from "./timeBox";
-import {addTimeBox, handleVote, subscribe} from "../../service";
+import {addTimeBox, handleVote, subscribeTimeBoxes} from "../../service";
 
 export function Whenify({ eventInfo }) {
     const [dateValue, setDateValue] = useState("");
@@ -15,7 +15,7 @@ export function Whenify({ eventInfo }) {
 
         addTimeBox({
             id: crypto.randomUUID(),
-            name: localStorage.getItem("name"),
+            name: localStorage.getItem("currentUser"),
             dateTime,
             yesVotes: 0,
             noVotes: 0,
@@ -25,7 +25,7 @@ export function Whenify({ eventInfo }) {
     };
 
     useEffect(() => {
-        return subscribe(setTimeBoxes);
+        return subscribeTimeBoxes(setTimeBoxes);
     }, []);
 
     return (

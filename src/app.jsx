@@ -9,7 +9,7 @@ import { Register } from './register/register';
 import { Whenify } from './whenify/whenify';
 
 export default function App() {
-    const [user, setUser] = useState(localStorage.getItem("name"));
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem("currentUser"));
     const [eventInfo, setEventInfo] = useState(() => {
         const stored = localStorage.getItem("eventInfo");
         return stored
@@ -24,6 +24,14 @@ export default function App() {
     });
 
     useEffect(() => {
+        if (currentUser) {
+            localStorage.setItem("currentUser", currentUser);
+        } else {
+            localStorage.removeItem("currentUser");
+        }
+    }, [currentUser]);
+
+    useEffect(() => {
         localStorage.setItem("eventInfo", JSON.stringify(eventInfo))
     }, [eventInfo])
 
@@ -35,11 +43,11 @@ export default function App() {
                             <NavLink className="navbar-brand fs-3" to="/">Whenify </NavLink>
                             <ul className="navbar-nav ms-auto">
                                 <li className="nav-item dropdown">
-                                    {user && (
+                                    {currentUser && (
                                         <>
                                         <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            {user}
+                                            {currentUser}
                                         </a>
                                         <ul className="dropdown-menu dropdown-menu-end">
                                             <li>
@@ -52,8 +60,8 @@ export default function App() {
                                                     className="dropdown-item"
                                                     to="login"
                                                     onClick={() => {
-                                                        localStorage.removeItem("name");
-                                                        setUser(null);
+                                                        localStorage.removeItem("currentUser");
+                                                        setCurrentUser(null);
                                                     }
                                                 }
                                                 >
@@ -71,10 +79,10 @@ export default function App() {
 
                 <main className="content">
                     <Routes>
-                        <Route path="/" element={user ? <Whenify eventInfo={eventInfo}/> : <Navigate to="/login" replace />}/>
-                        <Route path='/edit' element={user ? <Edit eventInfo = {eventInfo} setEventInfo = {setEventInfo}/> : <Navigate to="/login" replace />} />
-                        <Route path='/login' element={!user ? <Login setUser = { setUser } /> : <Navigate to="/" replace />} />
-                        <Route path='/register' element={!user ? <Register setUser = { setUser } /> : <Navigate to="/" replace />} />
+                        <Route path="/" element={currentUser ? <Whenify eventInfo={eventInfo}/> : <Navigate to="/login" replace />}/>
+                        <Route path='/edit' element={currentUser ? <Edit eventInfo = {eventInfo} setEventInfo = {setEventInfo}/> : <Navigate to="/login" replace />} />
+                        <Route path='/login' element={!currentUser ? <Login setUser = { setCurrentUser } /> : <Navigate to="/" replace />} />
+                        <Route path='/register' element={!currentUser ? <Register setCurrentUser = { setCurrentUser } /> : <Navigate to="/" replace />} />
                         <Route path='*' element={<NotFound />} />
                     </Routes>
                 </main>
