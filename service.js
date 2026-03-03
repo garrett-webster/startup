@@ -101,3 +101,7 @@ export function registerUser(user) {
     notifyUsers();
     return true;
 }
+
+export function authenticateUser(user) {
+    return users.some(existingUser => user.name === existingUser.name && user.password === existingUser.password)
+}

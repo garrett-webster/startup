@@ -81,7 +81,7 @@ export default function App() {
                     <Routes>
                         <Route path="/" element={currentUser ? <Whenify eventInfo={eventInfo}/> : <Navigate to="/login" replace />}/>
                         <Route path='/edit' element={currentUser ? <Edit eventInfo = {eventInfo} setEventInfo = {setEventInfo}/> : <Navigate to="/login" replace />} />
-                        <Route path='/login' element={!currentUser ? <Login setUser = { setCurrentUser } /> : <Navigate to="/" replace />} />
+                        <Route path='/login' element={!currentUser ? <Login setCurrentUser = { setCurrentUser } /> : <Navigate to="/" replace />} />
                         <Route path='/register' element={!currentUser ? <Register setCurrentUser = { setCurrentUser } /> : <Navigate to="/" replace />} />
                         <Route path='*' element={<NotFound />} />
                     </Routes>

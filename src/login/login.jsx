@@ -1,21 +1,44 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './login.css';
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
+import {authenticateUser} from "../../service";
 
-export function Login() {
+export function Login({ setCurrentUser }) {
+    const navigate = useNavigate();
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!authenticateUser({"name": name, "password": password})) {
+            alert("Username or password incorrect");
+            return;
+        }
+
+        setCurrentUser(name);
+        navigate("/");
+    }
     return (
         <main>
             <div className="padding"></div>
             <div className="credentials-box">
                 <h3>Login</h3>
-                <form>
-                    <label htmlFor="name" className="field">
+                <form onSubmit={handleSubmit}>
+                    <label className="field">
                         Username
-                        <input type="text" id="name" placeholder="Your username"/>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
                     </label>
-                    <label htmlFor="password" className="field">
+
+                    <label className="field">
                         Password
-                        <input type="text" id="password" placeholder="Your password"/>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                     </label>
                     <input type="submit" value="Login"/>
                     <NavLink to="/register">Create account</NavLink>
