@@ -1,5 +1,6 @@
 import React from 'react';
 import './whenify.css';
+import {determineWeather} from "../../service";
 
 export function TimeBox({ id, handleVote, name, dateTime, currentUser, yesVotes = [], noVotes = [] }) {
     const date = dateTime.toLocaleDateString(undefined, {
@@ -12,6 +13,10 @@ export function TimeBox({ id, handleVote, name, dateTime, currentUser, yesVotes 
         minute: "2-digit"
     });
 
+    const weatherIcon = React.useMemo(() => {
+        return determineWeather(dateTime);
+    }, [dateTime]);
+
     return (
         <div className="time-box">
             <div className="time-info-box">
@@ -20,7 +25,7 @@ export function TimeBox({ id, handleVote, name, dateTime, currentUser, yesVotes 
                 <p className="timeLabel">{ time }</p>
             </div>
             <div className="time-box-right">
-                <img src="/rainIcon.png" alt="rain cloud" className="weather-icon"/>
+                <img src={weatherIcon} alt="rain cloud" className="weather-icon"/>
                 <div className="voting-box">
                     <div className="voting-row">
                         <button

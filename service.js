@@ -94,3 +94,11 @@ export function registerUser(user) {
 export function authenticateUser(user) {
     return users.some(existingUser => user.name === existingUser.name && user.password === existingUser.password)
 }
+
+export function determineWeather(dateTime) {
+    if (Math.random() > .5) {
+        return "/rainIcon.png"
+    } else {
+        return "sunIcon.png"
+    }
+}
