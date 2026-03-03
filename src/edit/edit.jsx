@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import './edit.css';
+import {useNavigate} from "react-router-dom";
+import {clearMemory} from "../../service";
 
-export function Edit({eventInfo, setEventInfo}) {
+export function Edit({eventInfo, setEventInfo, setCurrentUser}) {
+    const navigate = useNavigate();
     const [name, setName] = useState(eventInfo.name);
     const [organizer, setOrganizer] = useState(eventInfo.organizer);
     const [description, setDescription] = useState(eventInfo.description);
@@ -75,7 +78,19 @@ export function Edit({eventInfo, setEventInfo}) {
                                     value={longitude}
                                     onChange={(e) => setLongitude(e.target.value === "" ? "" : Number(e.target.value))}
                                 />
-                            <input type="submit" value="save"/>
+                            <button
+                                type="button"
+                                id = "clearButton"
+                                onClick={() => {
+                                    clearMemory();
+                                    localStorage.clear();
+                                    setCurrentUser("");
+                                    navigate("/login");
+                                }}
+                            >
+                                Clear Data
+                            </button>
+                            <input type="submit" value="Save"/>
                         </div>
                     </div>
                 </form>

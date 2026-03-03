@@ -70,3 +70,7 @@ footer {
     border: 1px solid #ccc;
     padding: 0.5rem 0.75rem;
 }
+
+#clearButton {
+    border: solid red 1px;
+}

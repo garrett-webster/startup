@@ -102,3 +102,12 @@ export function determineWeather(dateTime) {
         return "sunIcon.png"
     }
 }
+
+export function clearMemory() {
+    timeBoxes = [];
+    users = [];
+    notifyUsers();
+    notifyTimeBox();
+    timeBoxListeners = [];
+    usersListeners = [];
+}
