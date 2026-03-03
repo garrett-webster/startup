@@ -23,6 +23,44 @@ export function Whenify({ eventInfo, currentUser }) {
         });
     };
 
+    // MOCKED BEHAVIOR
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (timeBoxes.length < 6) {
+                addTimeBox({
+                        id: crypto.randomUUID(),
+                        name: "Bob Jones",
+                        dateTime: new Date("2026-03-07T06:47:00.000Z"),
+                        currentUser: currentUser,
+                    yesVotes: [],
+                    noVotes: []
+                    }
+                );
+            }
+        }, 10000)
+        return () => clearInterval(interval);
+    }, [timeBoxes.length]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (timeBoxes.length === 0) return;
+
+            const index = Math.floor(Math.random() * timeBoxes.length);
+            const box = timeBoxes[index];
+
+            const roll = Math.random();
+
+            if (roll < 0.5) {
+                handleVote(box.id, "yes", "John");
+            } else {
+                handleVote(box.id, "no", "John");
+            }
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, [timeBoxes]);
+
+
     useEffect(() => {
         return subscribeTimeBoxes(setTimeBoxes);
     }, []);
@@ -35,7 +73,6 @@ export function Whenify({ eventInfo, currentUser }) {
                     {timeBoxes.map(box => (
                         <TimeBox
                             key={box.id}
-                            id={box.id}
                             handleVote={handleVote}
                             currentUser={currentUser}
                             {...box}
