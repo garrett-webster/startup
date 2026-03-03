@@ -1,100 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import './whenify.css';
-import { TimeBox} from "./timeBox";
+import {TimeBox} from "./timeBox";
+import {addTimeBox, handleVote, subscribe} from "../../service";
 
 export function Whenify({ eventInfo }) {
-    const [timeBoxes, setTimeBoxes] = useState([])
-    useEffect(() => {
-        const stored = localStorage.getItem("timeBoxes");
-        if (stored) {
-            const parsed = JSON.parse(stored);
-            const revived = parsed.map(box => ({
-                ...box,
-                dateTime: new Date(box.dateTime)
-            }));
-            setTimeBoxes(revived);
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem("timeBoxes", JSON.stringify(timeBoxes));
-    }, [timeBoxes]);
-
     const [dateValue, setDateValue] = useState("");
     const [timeValue, setTimeValue] = useState("");
-
-    const handleVote = function(id, type) {
-        setTimeBoxes(previous => (
-            previous.map(val => {
-                if (val.id !== id) return val;
-                let yesVotes = val.yesVotes;
-                let noVotes = val.noVotes;
-                let yesChecked = val.yesChecked;
-                let noChecked = val.noChecked;
-
-                if (type === "yes") {
-                    if (yesChecked) {
-                        yesVotes -= 1;
-                        yesChecked = false;
-                    } else {
-                        yesVotes += 1;
-                        yesChecked = true;
-
-                        if (noChecked) {
-                            noVotes -= 1;
-                            noChecked = false;
-                        }
-                    }
-                }
-
-                if (type === "no") {
-                    if (noChecked) {
-                        noVotes -= 1;
-                        noChecked = false;
-                    } else {
-                        noVotes += 1;
-                        noChecked = true;
-
-                        if (yesChecked) {
-                            yesVotes -= 1;
-                            yesChecked = false;
-                        }
-                    }
-                }
-
-                return ({
-                    ...val,
-                    yesVotes: yesVotes,
-                    noVotes: noVotes,
-                    yesChecked: yesChecked,
-                    noChecked: noChecked
-                })
-            }))
-        )
-    }
+    const [timeBoxes, setTimeBoxes] = useState([]);
 
     const handleSubmit = () => {
         if (!dateValue || !timeValue) return;
 
         const dateTime = new Date(`${dateValue}T${timeValue}`);
 
-        addTimeBox(dateTime, 0, 0, false, false);
+        addTimeBox({
+            id: crypto.randomUUID(),
+            name: localStorage.getItem("name"),
+            dateTime,
+            yesVotes: 0,
+            noVotes: 0,
+            yesChecked: false,
+            noChecked: false
+        });
     };
 
-    const addTimeBox = (date, yesVotes, noVotes, yesChecked, noChecked, name = localStorage.getItem("name"), id = crypto.randomUUID()) => {
-        setTimeBoxes(prevTimeBoxes => [
-            ...prevTimeBoxes,
-            {
-                id: id,
-                name: name,
-                dateTime: date,
-                yesVotes: yesVotes,
-                noVotes: noVotes,
-                yesChecked: yesChecked,
-                noChecked: noChecked
-            }
-        ]);
-    }
+    useEffect(() => {
+        return subscribe(setTimeBoxes);
+    }, []);
 
     return (
         <div id="whenify">
