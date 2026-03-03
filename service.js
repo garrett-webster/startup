@@ -95,7 +95,9 @@ export function handleVote(id, type) {
 }
 
 export function registerUser(user) {
+    if(users.some(existingUser => user.name === existingUser.name)) return false;
     users.push(user);
     saveUsers();
     notifyUsers();
+    return true;
 }

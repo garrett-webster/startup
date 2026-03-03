@@ -22,7 +22,10 @@ export function Register({ setCurrentUser }) {
             alert("Passwords do not match");
             return;
         }
-        registerUser({name: name, password: password})
+        if (!registerUser({name: name, password: password})) {
+            alert("Username already taken");
+            return
+        }
         setCurrentUser(name);
 
         navigate("/");
