@@ -53,41 +53,30 @@ export function addTimeBox(box) {
     notifyTimeBox();
 }
 
-export function handleVote(id, type) {
+export function handleVote(id, type, user) {
     timeBoxes = timeBoxes.map(box => {
         if (box.id !== id) return box;
 
-        let { yesVotes, noVotes, yesChecked, noChecked } = box;
+        let yesVotes = [...box.yesVotes];
+        let noVotes = [...box.noVotes];
 
         if (type === "yes") {
-            if (yesChecked) {
-                yesVotes -= 1;
-                yesChecked = false;
+            if (yesVotes.includes(user)) {
+                yesVotes = yesVotes.filter(u => u !== user);
             } else {
-                yesVotes += 1;
-                yesChecked = true;
-                if (noChecked) {
-                    noVotes -= 1;
-                    noChecked = false;
-                }
+                yesVotes.push(user);
+                noVotes = noVotes.filter(u => u !== user);
+            }
+        } else {
+            if (noVotes.includes(user)) {
+                noVotes = noVotes.filter(u => u !== user);
+            } else {
+                noVotes.push(user);
+                yesVotes = yesVotes.filter(u => u !== user);
             }
         }
 
-        if (type === "no") {
-            if (noChecked) {
-                noVotes -= 1;
-                noChecked = false;
-            } else {
-                noVotes += 1;
-                noChecked = true;
-                if (yesChecked) {
-                    yesVotes -= 1;
-                    yesChecked = false;
-                }
-            }
-        }
-
-        return { ...box, yesVotes, noVotes, yesChecked, noChecked };
+        return { ...box, yesVotes, noVotes };
     });
 
     saveTimeboxes();

@@ -3,7 +3,7 @@ import './whenify.css';
 import {TimeBox} from "./timeBox";
 import {addTimeBox, handleVote, subscribeTimeBoxes} from "../../service";
 
-export function Whenify({ eventInfo }) {
+export function Whenify({ eventInfo, currentUser }) {
     const [dateValue, setDateValue] = useState("");
     const [timeValue, setTimeValue] = useState("");
     const [timeBoxes, setTimeBoxes] = useState([]);
@@ -17,10 +17,9 @@ export function Whenify({ eventInfo }) {
             id: crypto.randomUUID(),
             name: localStorage.getItem("currentUser"),
             dateTime,
-            yesVotes: 0,
-            noVotes: 0,
-            yesChecked: false,
-            noChecked: false
+            currentUser: currentUser,
+            yesVotes: [],
+            noVotes: []
         });
     };
 
@@ -38,6 +37,7 @@ export function Whenify({ eventInfo }) {
                             key={box.id}
                             id={box.id}
                             handleVote={handleVote}
+                            currentUser={currentUser}
                             {...box}
                         />
                     ))}

@@ -1,7 +1,7 @@
 import React from 'react';
 import './whenify.css';
 
-export function TimeBox({ id, handleVote, name, dateTime, yesVotes = 0, noVotes = 0, yesChecked = false, noChecked = false }) {
+export function TimeBox({ id, handleVote, name, dateTime, currentUser, yesVotes = [], noVotes = [] }) {
     const date = dateTime.toLocaleDateString(undefined, {
         weekday: "long",
         month: "long",
@@ -24,17 +24,17 @@ export function TimeBox({ id, handleVote, name, dateTime, yesVotes = 0, noVotes 
                 <div className="voting-box">
                     <div className="voting-row">
                         <button
-                            className={`voting-btn voting-row-element ${yesChecked ? 'selected-button' : ''}`}
-                            onClick={() => handleVote(id, "yes")}
+                            className={`voting-btn voting-row-element ${yesVotes.includes(currentUser) ? 'selected-button' : ''}`}
+                            onClick={() => handleVote(id, "yes", currentUser)}
                         >Yes</button>
-                        <p className="vote-total-display voting-row-element">{ yesVotes }</p>
+                        <p className="vote-total-display voting-row-element">{ yesVotes.length }</p>
                     </div>
                     <div className="voting-row">
                         <button
-                            className={`voting-btn voting-row-element ${noChecked ? 'selected-button' : ''}`}
-                            onClick={() => handleVote(id, "no")}
+                            className={`voting-btn voting-row-element ${noVotes.includes(currentUser) ? 'selected-button' : ''}`}
+                            onClick={() => handleVote(id, "no", currentUser)}
                         >No</button>
-                        <p className="vote-total-display voting-row-element">{ noVotes }</p>
+                        <p className="vote-total-display voting-row-element">{ noVotes.length }</p>
                     </div>
                 </div>
             </div>
