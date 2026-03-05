@@ -97,8 +97,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [X] **All functionality implemented or mocked out** - Ability to add and persist (via local storage) time proposals, votes, and info about the event. The service sends time proposals and votes as if they were being sent via websocket from other users. Registration and auth implemented.
+- [X] **Hooks** - useState, useEffect, and setInterval used in many ways across the code.  
 
 ## 🚀 Service deliverable
 
