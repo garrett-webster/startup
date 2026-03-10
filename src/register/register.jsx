@@ -18,11 +18,10 @@ export function Register({ setCurrentUser }) {
         e.preventDefault();
 
         if (!name || !password || !passwordRepeat) return;
-
-        const response = await fetch('/auth/create', {
+        const response = await fetch('api/auth/create', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: {name: name, password: password}
+            body: JSON.stringify({name: name, password: password})
         });
 
         if (!response.ok) {

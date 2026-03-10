@@ -25,16 +25,14 @@ let usersListeners = [];
 
 /* !!! Routes !!! */
 
-apiRouter.post('/auth/create')
-
 apiRouter.post('/auth/create', async (req, res) => {
     if (await findUser('name', req.body.name)) {
         res.status(409).send({ msg: 'Existing user' });
     } else {
-        const user = await createUser(req.body.email, req.body.password);
+        const user = await createUser(req.body.name, req.body.password);
 
         setAuthCookie(res, user.token);
-        res.send({ email: user.name });
+        res.send({ name: user.name });
     }
 });
 

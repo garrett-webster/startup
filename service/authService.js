@@ -3,13 +3,13 @@ const bcrypt = require('bcryptjs');
 
 let users = [];
 
-export async function findUser(field, value, users) {
+async function findUser(field, value) {
     if (!value) return null;
 
     return users.find((u) => u[field] === value);
 }
 
-export async function createUser(name, password, users) {
+async function createUser(name, password) {
     const passwordHash = await bcrypt.hash(password, 10);
 
     const user = {
@@ -19,5 +19,11 @@ export async function createUser(name, password, users) {
     };
     users.push(user);
 
+    console.log(users);
     return user;
 }
+
+module.exports = {
+    findUser,
+    createUser
+};
