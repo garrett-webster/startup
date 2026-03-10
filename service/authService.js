@@ -1,6 +1,6 @@
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
-const {UserAlreadyExistsException} = require("./exceptions");
+const {UserAlreadyExistsException, UnauthorizedException} = require("./exceptions");
 
 let users = [];
 
@@ -33,6 +33,19 @@ async function createUser(name, password) {
     return user.token;
 }
 
+async function loginUser(name, password) {
+    const user = await findUser('name', name);
+    if (user) {
+        if (await bcrypt.compare(password, user.password)) {
+            user.token = uuid.v4();
+            return user.token;
+        }
+    }
+
+    throw new UnauthorizedException("Unauthorized");
+}
+
 module.exports = {
-    createUser
+    createUser,
+    loginUser
 };

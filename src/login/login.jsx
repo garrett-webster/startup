@@ -7,16 +7,26 @@ export function Login({ setCurrentUser }) {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!authenticateUser({"name": name, "password": password})) {
-            alert("Username or password incorrect");
+
+        const response = await fetch('api/auth/login', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({name: name, password: password})
+        });
+
+        if (!response.ok) {
+            const body = await response.json();
+            alert(`Error: ${body.msg}`);
             return;
         }
 
         setCurrentUser(name);
         navigate("/");
     }
+
     return (
         <main>
             <div className="padding"></div>

@@ -1,6 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const {createUserHandler} = require("./handlers/authHandlers");
+const {createUserHandler, loginUserHandler} = require("./handlers/authHandlers");
 
 const app = express();
 app.use(express.json());
@@ -23,11 +23,8 @@ function setAuthCookie(res, authToken) {
 let timeBoxListeners = [];
 let usersListeners = [];
 
-/* !!! Routes !!! */
-
-apiRouter.post('/auth/create', async (req, res) => {
-    await createUserHandler(req, res);
-});
+apiRouter.post('/auth/create', createUserHandler);
+apiRouter.post('/auth/login', loginUserHandler);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

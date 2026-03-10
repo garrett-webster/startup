@@ -1,4 +1,4 @@
-export class UserAlreadyExistsException extends Error {
+class UserAlreadyExistsException extends Error {
     constructor(message) {
         super(message);
         this.name = "UserAlreadyExistsError";
@@ -6,4 +6,12 @@ export class UserAlreadyExistsException extends Error {
     }
 }
 
-module.exports = { UserAlreadyExistsException };
+class UnauthorizedException extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "UnauthorizedError";
+        this.statusCode = 401;
+    }
+}
+
+module.exports = { UserAlreadyExistsException, UnauthorizedException };

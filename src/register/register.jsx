@@ -30,6 +30,7 @@ export function Register({ setCurrentUser }) {
             return;
         }
 
+        // TODO: Replace this with checking cookies
         setCurrentUser(name);
 
         navigate("/");
