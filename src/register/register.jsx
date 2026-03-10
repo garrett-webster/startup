@@ -14,18 +14,23 @@ export function Register({ setCurrentUser }) {
         return subscribeUsers(setUsers);
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!name || !password || !passwordRepeat) return;
-        if (password !== passwordRepeat) {
-            alert("Passwords do not match");
+
+        const response = await fetch('/auth/create', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: {name: name, password: password}
+        });
+
+        if (!response.ok) {
+            const body = await response.json();
+            alert(`Error: ${body.msg}`);
             return;
         }
-        if (!registerUser({name: name, password: password})) {
-            alert("Username already taken");
-            return
-        }
+
         setCurrentUser(name);
 
         navigate("/");

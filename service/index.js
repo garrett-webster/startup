@@ -1,19 +1,25 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const bcrypt = require('bcryptjs');
-const uuid = require('uuid');
+const {findUser, createUser} = require("./authService");
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
-/* !!! Actual logic !!! */
+/* !!! Helper functions !!! */
+const authCookieName = 'token';
+function setAuthCookie(res, authToken) {
+    res.cookie(authCookieName, authToken, {
+        httpOnly: true,
+        sameSite: 'strict',
+    });
+}
 
-let users = [];
 let timeBoxListeners = [];
 let usersListeners = [];
 
@@ -22,13 +28,13 @@ let usersListeners = [];
 apiRouter.post('/auth/create')
 
 apiRouter.post('/auth/create', async (req, res) => {
-    if (await findUser('email', req.body.email)) {
+    if (await findUser('name', req.body.name)) {
         res.status(409).send({ msg: 'Existing user' });
     } else {
         const user = await createUser(req.body.email, req.body.password);
 
         setAuthCookie(res, user.token);
-        res.send({ email: user.email });
+        res.send({ email: user.name });
     }
 });
 
