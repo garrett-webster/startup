@@ -9,6 +9,10 @@ export function Register({ setCurrentUser }) {
     const [passwordRepeat, setPasswordRepeat] = useState("");
     const [users, setUsers] = useState([])
 
+    function subscribeUsers(junk) {
+
+    }
+
     useEffect(() => {
         return subscribeUsers(setUsers);
     }, []);

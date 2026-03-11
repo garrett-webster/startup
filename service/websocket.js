@@ -1,5 +1,5 @@
 const WebSocket = require('ws');
-const {timeBoxesHandleMessage, getTimeBoxes} = require("./timeBoxService");
+const {handleTimeBoxesMessage, getTimeBoxes} = require("./timeBoxService");
 
 let clients = [];
 
@@ -17,7 +17,7 @@ function configureWebSocket(server) {
             const message = JSON.parse(data);
 
             if (message.type.startsWith("timeboxes")) {
-                timeBoxesHandleMessage(message);
+                handleTimeBoxesMessage(message, broadcast);
             }
         });
 

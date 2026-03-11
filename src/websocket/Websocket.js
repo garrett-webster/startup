@@ -2,7 +2,7 @@ let socket;
 let handlers = [];
 
 export function connect() {
-    socket = new WebSocket(`ws://${window.location.host}`);
+    socket = new WebSocket(`ws://localhost:3000`);
 
     socket.onopen = () => {
         console.log("WebSocket connected");

@@ -19,7 +19,11 @@ function notify() {
 
 registerHandler((message) => {
     if (message.type === "timeboxes.updated") {
-        timeBoxes = message.data;
+        timeBoxes = message.data.map(box => ({
+            ...box,
+            dateTime: new Date(box.dateTime)
+        }));
+
         notify();
     }
 });

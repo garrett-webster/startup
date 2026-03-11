@@ -1,14 +1,12 @@
-const { broadcast } = require('./websocket');
-
 let timeBoxes = [];
 
-function handleTimeBoxesMessage(message) {
+function handleTimeBoxesMessage(message, broadcast) {
     if (message.type === "timeboxes.new") {
-        addTimebox(message.data)
+        addTimebox(message.data, broadcast)
     }
 }
 
-function addTimebox(box) {
+function addTimebox(box, broadcast) {
     timeBoxes.push(box);
 
     broadcast({
