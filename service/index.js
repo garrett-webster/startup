@@ -26,12 +26,10 @@ function setAuthCookie(res, authToken) {
     });
 }
 
-let timeBoxListeners = [];
-let usersListeners = [];
-
 apiRouter.post('/auth/create', createUserHandler);
 apiRouter.post('/auth/login', loginUserHandler);
-
+apiRouter.get('/eventInfo', getEventInfoHandler)
+apiRouter.post('/eventInfo', updateEventInfoHandler)
 server.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });

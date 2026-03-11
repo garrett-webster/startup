@@ -1,17 +1,37 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './edit.css';
-import {useNavigate} from "react-router-dom";
 import {clearMemory} from "../../service";
 
 export function Edit({eventInfo, setEventInfo, setCurrentUser}) {
-    const navigate = useNavigate();
-    const [name, setName] = useState(eventInfo.name);
-    const [organizer, setOrganizer] = useState(eventInfo.organizer);
-    const [description, setDescription] = useState(eventInfo.description);
-    const [latitude, setLatitude] = useState(eventInfo.latitude);
-    const [longitude, setLongitude] = useState(eventInfo.longitude);
+    const [name, setName] = useState(eventInfo?.name || "");
+    const [organizer, setOrganizer] = useState(eventInfo?.organizer || "");
+    const [description, setDescription] = useState(eventInfo?.description || "");
+    const [latitude, setLatitude] = useState(eventInfo?.latitude || "");
+    const [longitude, setLongitude] = useState(eventInfo?.longitude || "");
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        async function loadEventInfo() {
+            try {
+                const res = await fetch('/api/eventInfo', { credentials: 'include' });
+                if (!res.ok) throw new Error(`Failed to load: ${res.status}`);
+                const data = await res.json();
+
+                setName(data.name);
+                setOrganizer(data.organizer);
+                setDescription(data.description);
+                setLatitude(data.latitude);
+                setLongitude(data.longitude);
+
+                setEventInfo(data);
+            } catch (err) {
+                alert(err.message);
+            }
+        }
+
+        loadEventInfo();
+    }, []);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         let missing = [name, organizer, description, latitude, longitude].filter(item => item === "");
@@ -20,14 +40,34 @@ export function Edit({eventInfo, setEventInfo, setCurrentUser}) {
             return;
         }
 
-        setEventInfo({
-            name: name,
-            organizer: organizer,
-            description: description,
-            latitude: latitude,
-            longitude: longitude
-        })
-        alert("Event saved successfully");
+        const response = await fetch('/api/eventInfo', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+                eventInfo: {
+                    name,
+                    organizer,
+                    description,
+                    latitude,
+                    longitude
+                }
+            })
+        });
+
+        if (response.ok) {
+            const updated = await response.json();
+            setEventInfo(updated);
+            setName(updated.name);
+            setOrganizer(updated.organizer);
+            setDescription(updated.description);
+            setLatitude(updated.latitude);
+            setLongitude(updated.longitude);
+            alert("Event saved successfully");
+        } else {
+            alert("Error saving event: " + response.status)
+        }
+
     }
 
     return (
