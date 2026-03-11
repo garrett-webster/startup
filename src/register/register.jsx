@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
-import {registerUser, subscribeUsers} from "../../service";
 
 export function Register({ setCurrentUser }) {
     const navigate = useNavigate();

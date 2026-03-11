@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import './login.css';
 import {NavLink, useNavigate} from "react-router-dom";
-import {authenticateUser} from "../../service";
 
 export function Login({ setCurrentUser }) {
     const navigate = useNavigate();
