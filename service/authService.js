@@ -45,7 +45,17 @@ async function loginUser(name, password) {
     throw new UnauthorizedException("Unauthorized");
 }
 
+async function validateToken(token) {
+    if (!token) throw new UnauthorizedException("Unauthorized");
+
+    const user = await findUser("token", token);
+    if (!user) throw new UnauthorizedException("Unauthorized");
+
+    return user;
+}
+
 module.exports = {
+    validateToken,
     createUser,
     loginUser
 };
