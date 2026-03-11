@@ -18,15 +18,15 @@ function notify() {
 }
 
 registerHandler((message) => {
-    if (message.type === "timeboxesUpdated") {
+    if (message.type === "timeboxes.updated") {
         timeBoxes = message.data;
         notify();
     }
 });
 
-export function newTimebox(newBoxes) {
+export function newTimebox(newBox) {
     send({
-        type: "updateTimeboxes",
-        data: newBoxes
+        type: "timeboxes.new",
+        data: newBox
     });
 }

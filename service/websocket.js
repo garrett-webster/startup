@@ -1,4 +1,5 @@
 const WebSocket = require('ws');
+const {timeBoxesHandleMessage, getTimeBoxes} = require("./timeBoxService");
 
 let clients = [];
 
@@ -7,15 +8,16 @@ function configureWebSocket(server) {
 
     wss.on('connection', (ws) => {
         clients.push(ws);
+        ws.send(JSON.stringify({
+            type: "timeboxes.updated",
+            data: getTimeBoxes()
+        }));
 
         ws.on('message', (data) => {
             const message = JSON.parse(data);
 
-            if (message.type === "updateTimeboxes") {
-                broadcast({
-                    type: "timeboxesUpdated",
-                    data: message.data
-                });
+            if (message.type.startsWith("timeboxes")) {
+                timeBoxesHandleMessage(message);
             }
         });
 

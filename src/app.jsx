@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { connect } from "./websocket/Websocket";
 import {Navigate, NavLink, Route, Routes} from 'react-router-dom';
 import { Edit } from './edit/edit';
 import { Login } from './login/login';
@@ -22,6 +23,10 @@ export default function App() {
                 longitude: 0
             };
     });
+
+    useEffect(() => {
+        connect();
+    }, []);
 
     useEffect(() => {
         if (currentUser) {

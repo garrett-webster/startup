@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './whenify.css';
 import {TimeBox} from "./timeBox";
-import {addTimeBox, handleVote, subscribeTimeBoxes} from "../../service";
+// import {addTimeBox, handleVote} from "../../service";
+import {subscribeTimeBoxes, newTimebox} from "../websocket/timeBoxService"
 
 export function Whenify({ eventInfo, currentUser }) {
     const [dateValue, setDateValue] = useState("");
@@ -13,33 +14,37 @@ export function Whenify({ eventInfo, currentUser }) {
 
         const dateTime = new Date(`${dateValue}T${timeValue}`);
 
-        addTimeBox({
+        newTimebox({
             id: crypto.randomUUID(),
-            name: localStorage.getItem("currentUser"),
+            name: currentUser,
             dateTime,
-            currentUser: currentUser,
             yesVotes: [],
             noVotes: []
         });
+
+        setDateValue("");
+        setTimeValue("");
     };
 
-    // MOCKED BEHAVIOR
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (timeBoxes.length < 6) {
-                addTimeBox({
-                        id: crypto.randomUUID(),
-                        name: "Bob Jones",
-                        dateTime: new Date("2026-03-07T06:47:00.000Z"),
-                        currentUser: currentUser,
-                    yesVotes: [],
-                    noVotes: []
-                    }
-                );
-            }
-        }, 10000)
-        return () => clearInterval(interval);
-    }, [timeBoxes.length]);
+    // // MOCKED BEHAVIOR
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         if (timeBoxes.length < 6) {
+    //             addTimeBox({
+    //                     id: crypto.randomUUID(),
+    //                     name: "Bob Jones",
+    //                     dateTime: new Date("2026-03-07T06:47:00.000Z"),
+    //                     currentUser: currentUser,
+    //                 yesVotes: [],
+    //                 noVotes: []
+    //                 }
+    //             );
+    //         }
+    //     }, 10000)
+    //     return () => clearInterval(interval);
+    // }, [timeBoxes.length]);
+
+    const handleVote = () => {}; // Stub so handleVote doesn't throw an error while I'm working on the websocket stuff.
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -94,7 +99,7 @@ export function Whenify({ eventInfo, currentUser }) {
                         value={timeValue}
                         onChange={e => setTimeValue(e.target.value)}
                     />
-                    <input type="submit" value="Submit" style={{ marginTop: '5px' }} onClick={() => handleSubmit()}/>
+                    <input type="submit" value="Submit" style={{ marginTop: '5px' }} onClick={handleSubmit}/>
                 </div>
             </div>
             <div id="middle-padding"></div>
