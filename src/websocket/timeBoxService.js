@@ -34,3 +34,14 @@ export function newTimebox(newBox) {
         data: newBox
     });
 }
+
+export function handleVote(id, vote, user) {
+    send({
+        type: "timeboxes.vote",
+        data: {
+            id: id,
+            type: vote,
+            user: user
+        }
+    })
+}

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './whenify.css';
 import {TimeBox} from "./timeBox";
 // import {addTimeBox, handleVote} from "../../service";
-import {subscribeTimeBoxes, newTimebox} from "../websocket/timeBoxService"
+import {subscribeTimeBoxes, newTimebox, handleVote} from "../websocket/timeBoxService"
 
 export function Whenify({ eventInfo, currentUser }) {
     const [dateValue, setDateValue] = useState("");
