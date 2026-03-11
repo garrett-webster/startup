@@ -26,25 +26,23 @@ export function Whenify({ eventInfo, currentUser }) {
         setTimeValue("");
     };
 
-    // // MOCKED BEHAVIOR
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         if (timeBoxes.length < 6) {
-    //             addTimeBox({
-    //                     id: crypto.randomUUID(),
-    //                     name: "Bob Jones",
-    //                     dateTime: new Date("2026-03-07T06:47:00.000Z"),
-    //                     currentUser: currentUser,
-    //                 yesVotes: [],
-    //                 noVotes: []
-    //                 }
-    //             );
-    //         }
-    //     }, 10000)
-    //     return () => clearInterval(interval);
-    // }, [timeBoxes.length]);
-
-    const handleVote = () => {}; // Stub so handleVote doesn't throw an error while I'm working on the websocket stuff.
+    // MOCKED BEHAVIOR
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (timeBoxes.length < 6) {
+                newTimebox({
+                        id: crypto.randomUUID(),
+                        name: "Bob Jones",
+                        dateTime: new Date("2026-03-07T06:47:00.000Z"),
+                        currentUser: currentUser,
+                    yesVotes: [],
+                    noVotes: []
+                    }
+                );
+            }
+        }, 10000)
+        return () => clearInterval(interval);
+    }, [timeBoxes.length]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -64,6 +62,8 @@ export function Whenify({ eventInfo, currentUser }) {
 
         return () => clearInterval(interval);
     }, [timeBoxes]);
+
+    /* END MOCKED BEHAVIOR */
 
 
     useEffect(() => {
