@@ -22,6 +22,8 @@ async function updateEventInfoHandler(req, res) {
     }
 }
 
+// TODO: Add a clear data endpoint
+
 module.exports = {
     getEventInfoHandler,
     updateEventInfoHandler
