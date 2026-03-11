@@ -1,13 +1,19 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const {createUserHandler, loginUserHandler} = require("./handlers/authHandlers");
+const {configureWebSocket} = require("./websocket");
+const http = require('http');
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+const server = http.createServer(app);
+
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
+
+configureWebSocket(server);
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
@@ -26,6 +32,6 @@ let usersListeners = [];
 apiRouter.post('/auth/create', createUserHandler);
 apiRouter.post('/auth/login', loginUserHandler);
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
