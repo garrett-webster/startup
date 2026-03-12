@@ -10,7 +10,7 @@ import { Register } from './register/register';
 import { Whenify } from './whenify/whenify';
 
 export default function App() {
-    const [currentUser, setCurrentUser] = useState(localStorage.getItem("currentUser"));
+    const [currentUser, setCurrentUser] = useState(null);
     const [eventInfo, setEventInfo] = useState(() => {
         const stored = localStorage.getItem("eventInfo");
         return stored
@@ -26,19 +26,15 @@ export default function App() {
 
     useEffect(() => {
         connect();
+
+        fetch("/api/auth/me", { credentials: "include" })
+            .then(res => res.ok ? res.json() : null)
+            .then(data => {
+                if (data?.user) {
+                    setCurrentUser(data.user);
+                }
+            });
     }, []);
-
-    useEffect(() => {
-        if (currentUser) {
-            localStorage.setItem("currentUser", currentUser);
-        } else {
-            localStorage.removeItem("currentUser");
-        }
-    }, [currentUser]);
-
-    useEffect(() => {
-        localStorage.setItem("eventInfo", JSON.stringify(eventInfo))
-    }, [eventInfo])
 
     return (
             <div className="page">

@@ -1,4 +1,4 @@
-const { createUser, loginUser } = require("../authService");
+const { createUser, loginUser, findUser, getMe} = require("../authService");
 
 
 const authCookieName = 'token';
@@ -22,6 +22,15 @@ async function loginUserHandler(req, res) {
     }
 }
 
+async function getMeHandler(req, res) {
+    try {
+        let userName = await getMe(req.body.token);
+        res.status(200).send({ msg: userName})
+    } catch {
+        res.status(200).send({ msg: null})
+    }
+}
+
 function setAuthCookie(res, authToken) {
     res.cookie(authCookieName, authToken, {
         httpOnly: true,
@@ -30,6 +39,7 @@ function setAuthCookie(res, authToken) {
 }
 
 module.exports = {
+    getMeHandler,
     loginUserHandler,
     createUserHandler
 };

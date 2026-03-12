@@ -54,8 +54,18 @@ async function validateToken(token) {
     return user;
 }
 
+async function getMe(token) {
+    if (!token) throw new UnauthorizedException("Unauthorized");
+
+    const user = await findUser("token", token);
+    if (!user) throw new UnauthorizedException("Unauthorized");
+
+    return user.name;
+}
+
 module.exports = {
     validateToken,
     createUser,
-    loginUser
+    loginUser,
+    getMe
 };
