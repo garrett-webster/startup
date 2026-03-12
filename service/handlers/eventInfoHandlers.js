@@ -16,14 +16,12 @@ async function updateEventInfoHandler(req, res) {
         const token = req.cookies['token'];
         await updateEventInfo(req.body.eventInfo, token);
         const updated = await getEventInfo(token);
-        res.status(200).json(updated);  // <--- return updated event
+        res.status(200).json(updated);
     } catch (e) {
         console.log(e)
         res.status(e.statusCode || 500).send({ msg: e.message });
     }
 }
-
-// TODO: Add a clear data endpoint
 
 module.exports = {
     getEventInfoHandler,
