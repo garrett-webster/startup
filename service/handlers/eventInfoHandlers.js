@@ -14,8 +14,9 @@ async function getEventInfoHandler(req, res) {
 async function updateEventInfoHandler(req, res) {
     try {
         const token = req.cookies['token'];
-        await updateEventInfo(req.body.eventInfo, token)
-        res.status(200).send({ success: true });
+        await updateEventInfo(req.body.eventInfo, token);
+        const updated = await getEventInfo(token);
+        res.status(200).json(updated);  // <--- return updated event
     } catch (e) {
         console.log(e)
         res.status(e.statusCode || 500).send({ msg: e.message });

@@ -15,8 +15,9 @@ async function createUserHandler(req, res) {
 
 async function loginUserHandler(req, res) {
     try {
-        await loginUser(req.body.name, req.body.password);
-        res.send();
+        const token = await loginUser(req.body.name, req.body.password);
+        setAuthCookie(res, token);
+        res.send({ user: req.body.name });
     } catch (e) {
         res.status(e.statusCode || 500).send({ msg: e.message });
     }
@@ -24,7 +25,7 @@ async function loginUserHandler(req, res) {
 
 async function getMeHandler(req, res) {
     try {
-        let userName = await getMe(req.body.token);
+        let userName = await getMe(req.cookies.token);
         res.status(200).send({ msg: userName})
     } catch {
         res.status(200).send({ msg: null})
