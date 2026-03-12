@@ -83,23 +83,11 @@ export function handleVote(id, type, user) {
     notifyTimeBox();
 }
 
-export function registerUser(user) {
-    if(users.some(existingUser => user.name === existingUser.name)) return false;
-    users.push(user);
-    saveUsers();
-    notifyUsers();
-    return true;
-}
-
-export function authenticateUser(user) {
-    return users.some(existingUser => user.name === existingUser.name && user.password === existingUser.password)
-}
-
 export function determineWeather(dateTime) {
     if (Math.random() > .5) {
-        return "/rainIcon.png"
+        return "/raining.png"
     } else {
-        return "sunIcon.png"
+        return "sunny.png"
     }
 }
 
