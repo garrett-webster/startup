@@ -1,41 +1,43 @@
-import React, {useEffect, useState} from 'react';
-import {NavLink, useNavigate} from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 
-export function Register({ setCurrentUser }) {
+export function Register() {
+    const { setCurrentUser } = useApp();
     const navigate = useNavigate();
 
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [passwordRepeat, setPasswordRepeat] = useState("");
-    const [users, setUsers] = useState([])
-
-    function subscribeUsers(junk) {
-
-    }
-
-    useEffect(() => {
-        return subscribeUsers(setUsers);
-    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!name || !password || !passwordRepeat) return;
-        const response = await fetch('api/auth/create', {
+        if (!name || !password || !passwordRepeat) {
+            alert("All fields are required");
+            return;
+        }
+
+        if (password !== passwordRepeat) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        const response = await fetch('/api/auth/create', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({name: name, password: password})
+            credentials: 'include',
+            body: JSON.stringify({ name, password })
         });
 
         if (!response.ok) {
-            const body = await response.json();
+            const body = await response.json().catch(() => ({ msg: 'Unknown error' }));
             alert(`Error: ${body.msg}`);
             return;
         }
 
-        // TODO: Replace this with checking cookies
+        // On successful registration, set current user
         setCurrentUser(name);
-
         navigate("/");
     };
 
@@ -53,6 +55,7 @@ export function Register({ setCurrentUser }) {
                             onChange={(e) => setName(e.target.value)}
                         />
                     </label>
+
                     <label className="field">
                         Password
                         <input
@@ -61,6 +64,7 @@ export function Register({ setCurrentUser }) {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </label>
+
                     <label className="field">
                         Enter password again
                         <input
@@ -69,6 +73,7 @@ export function Register({ setCurrentUser }) {
                             onChange={(e) => setPasswordRepeat(e.target.value)}
                         />
                     </label>
+
                     <input type="submit" value="Register" />
                     <NavLink to="/login">Already have account?</NavLink>
                 </form>

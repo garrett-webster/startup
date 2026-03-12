@@ -1,27 +1,29 @@
 import React, {useState} from 'react';
 import './login.css';
 import {NavLink, useNavigate} from "react-router-dom";
+import { useApp } from "../context/AppContext";
 
-export function Login({ setCurrentUser }) {
+export function Login() {
     const navigate = useNavigate();
+    const { setCurrentUser } = useApp(); // <- get from context now
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch('api/auth/login', {
+        const response = await fetch('/api/auth/login', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({name: name, password: password})
+            credentials: 'include',
+            body: JSON.stringify({ name, password })
         });
 
         if (!response.ok) {
-            const body = await response.json();
+            const body = await response.json().catch(() => ({ msg: "Unknown error" }));
             alert(`Error: ${body.msg}`);
             return;
         }
-
         setCurrentUser(name);
         navigate("/");
     }
@@ -52,7 +54,6 @@ export function Login({ setCurrentUser }) {
                     <input type="submit" value="Login"/>
                     <NavLink to="/register">Create account</NavLink>
                 </form>
-
             </div>
             <div className="padding"></div>
         </main>

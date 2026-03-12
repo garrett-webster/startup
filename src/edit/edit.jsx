@@ -1,40 +1,43 @@
 import React, {useEffect, useState} from 'react';
 import './edit.css';
-import {clearMemory} from "../../service";
+import { useNavigate } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 
-export function Edit({eventInfo, setEventInfo, setCurrentUser}) {
-    const [name, setName] = useState(eventInfo?.name || "");
-    const [organizer, setOrganizer] = useState(eventInfo?.organizer || "");
-    const [description, setDescription] = useState(eventInfo?.description || "");
-    const [latitude, setLatitude] = useState(eventInfo?.latitude || "");
-    const [longitude, setLongitude] = useState(eventInfo?.longitude || "");
+export function Edit() {
+    const { eventInfo, setEventInfo, setCurrentUser } = useApp();
+    const navigate = useNavigate();
+
+    const [form, setForm] = useState({
+        name: "",
+        organizer: "",
+        description: "",
+        latitude: "",
+        longitude: ""
+    });
 
     useEffect(() => {
-        async function loadEventInfo() {
-            try {
-                const res = await fetch('/api/eventInfo', { credentials: 'include' });
-                if (!res.ok) throw new Error(`Failed to load: ${res.status}`);
-                const data = await res.json();
-
-                setName(data.name);
-                setOrganizer(data.organizer);
-                setDescription(data.description);
-                setLatitude(data.latitude);
-                setLongitude(data.longitude);
-
-                setEventInfo(data);
-            } catch (err) {
-                alert(err.message);
-            }
+        if (eventInfo) {
+            setForm({
+                name: eventInfo.name ?? "",
+                organizer: eventInfo.organizer ?? "",
+                description: eventInfo.description ?? "",
+                latitude: eventInfo.latitude ?? "",
+                longitude: eventInfo.longitude ?? ""
+            });
         }
+    }, [eventInfo]);
 
-        loadEventInfo();
-    }, []);
+    function updateField(field, value) {
+        setForm(prev => ({
+            ...prev,
+            [field]: value
+        }));
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        let missing = [name, organizer, description, latitude, longitude].filter(item => item === "");
+        const missing = Object.values(form).filter(v => v === "");
         if (missing.length > 0) {
             alert("All fields must have values");
             return;
@@ -44,97 +47,111 @@ export function Edit({eventInfo, setEventInfo, setCurrentUser}) {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify({
-                eventInfo: {
-                    name,
-                    organizer,
-                    description,
-                    latitude,
-                    longitude
-                }
-            })
+            body: JSON.stringify({ eventInfo: form })
         });
 
         if (response.ok) {
             const updated = await response.json();
             setEventInfo(updated);
-            setName(updated.name);
-            setOrganizer(updated.organizer);
-            setDescription(updated.description);
-            setLatitude(updated.latitude);
-            setLongitude(updated.longitude);
+            setForm({
+                name: updated.name ?? "",
+                organizer: updated.organizer ?? "",
+                description: updated.description ?? "",
+                latitude: updated.latitude ?? "",
+                longitude: updated.longitude ?? ""
+            });
             alert("Event saved successfully");
         } else {
-            alert("Error saving event: " + response.status)
+            alert("Error saving event: " + response.status);
         }
-
-    }
+    };
 
     return (
         <main>
             <div className="padding"></div>
+
             <div id="edit-box">
                 <h3>Edit</h3>
+
                 <form onSubmit={handleSubmit}>
                     <div id="form-element-container">
+
                         <div className="form-column">
                             <label htmlFor="name">Name</label>
-                                <input
-                                    id="name" type="text"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                />
+                            <input
+                                id="name"
+                                type="text"
+                                value={form.name}
+                                onChange={(e) => updateField("name", e.target.value)}
+                            />
+
                             <label htmlFor="description">Description</label>
                             <textarea
                                 id="description"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                value={form.description}
+                                onChange={(e) => updateField("description", e.target.value)}
                             />
                         </div>
+
                         <div className="form-column">
                             <label htmlFor="organizerName">Organizer</label>
-                                <input
-                                    id="organizerName"
-                                    type="text"
-                                    value={organizer}
-                                    onChange={(e) => setOrganizer(e.target.value)}
-                                />
+                            <input
+                                id="organizerName"
+                                type="text"
+                                value={form.organizer}
+                                onChange={(e) => updateField("organizer", e.target.value)}
+                            />
+
                             <label htmlFor="latitude">Latitude</label>
-                                <input
-                                    id="latitude"
-                                    type="number"
-                                    step="any"
-                                    min="-90"
-                                    max="90"
-                                    value={latitude}
-                                    onChange={(e) => setLatitude(e.target.value === "" ? "" : Number(e.target.value))}
-                                />
+                            <input
+                                id="latitude"
+                                type="number"
+                                step="any"
+                                min="-90"
+                                max="90"
+                                value={form.latitude}
+                                onChange={(e) =>
+                                    updateField(
+                                        "latitude",
+                                        e.target.value === "" ? "" : Number(e.target.value)
+                                    )
+                                }
+                            />
+
                             <label htmlFor="longitude">Longitude</label>
-                                <input
-                                    id="longitude"
-                                    step="any"
-                                    min="-180"
-                                    max="180"
-                                    value={longitude}
-                                    onChange={(e) => setLongitude(e.target.value === "" ? "" : Number(e.target.value))}
-                                />
+                            <input
+                                id="longitude"
+                                type="number"
+                                step="any"
+                                min="-180"
+                                max="180"
+                                value={form.longitude}
+                                onChange={(e) =>
+                                    updateField(
+                                        "longitude",
+                                        e.target.value === "" ? "" : Number(e.target.value)
+                                    )
+                                }
+                            />
+
                             <button
                                 type="button"
-                                id = "clearButton"
+                                id="clearButton"
                                 onClick={() => {
-                                    clearMemory();
-                                    localStorage.clear();
-                                    setCurrentUser("");
+                                    setCurrentUser(null);
                                     navigate("/login");
                                 }}
                             >
-                                Clear Data
+                                Log Out
                             </button>
+
                             <input type="submit" value="Save"/>
                         </div>
+
                     </div>
                 </form>
             </div>
+
             <div className="padding"></div>
         </main>
     );

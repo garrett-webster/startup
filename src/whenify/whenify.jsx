@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './whenify.css';
-import {TimeBox} from "./timeBox";
-// import {addTimeBox, handleVote} from "../../service";
-import {subscribeTimeBoxes, newTimebox, handleVote} from "../websocket/timeBoxService"
+import { TimeBox } from "./timeBox";
+import { subscribeTimeBoxes, newTimebox, handleVote } from "../websocket/timeBoxService";
+import { useApp } from "../context/AppContext";
 
-export function Whenify({ eventInfo, currentUser }) {
+export function Whenify() {
+    const { currentUser, eventInfo } = useApp();
     const [dateValue, setDateValue] = useState("");
     const [timeValue, setTimeValue] = useState("");
     const [timeBoxes, setTimeBoxes] = useState([]);
 
     const handleSubmit = () => {
-        if (!dateValue || !timeValue) return;
+        if (!dateValue || !timeValue || !currentUser) return;
 
         const dateTime = new Date(`${dateValue}T${timeValue}`);
 
@@ -31,16 +32,14 @@ export function Whenify({ eventInfo, currentUser }) {
         const interval = setInterval(() => {
             if (timeBoxes.length < 6) {
                 newTimebox({
-                        id: crypto.randomUUID(),
-                        name: "Bob Jones",
-                        dateTime: new Date("2026-03-07T06:47:00.000Z"),
-                        currentUser: currentUser,
+                    id: crypto.randomUUID(),
+                    name: "Bob Jones",
+                    dateTime: new Date("2026-03-07T06:47:00.000Z"),
                     yesVotes: [],
                     noVotes: []
-                    }
-                );
+                });
             }
-        }, 10000)
+        }, 10000);
         return () => clearInterval(interval);
     }, [timeBoxes.length]);
 
@@ -52,7 +51,6 @@ export function Whenify({ eventInfo, currentUser }) {
             const box = timeBoxes[index];
 
             const roll = Math.random();
-
             if (roll < 0.5) {
                 handleVote(box.id, "yes", "John");
             } else {
@@ -63,12 +61,14 @@ export function Whenify({ eventInfo, currentUser }) {
         return () => clearInterval(interval);
     }, [timeBoxes]);
 
-    /* END MOCKED BEHAVIOR */
-
-
+    // Subscribe to live updates
     useEffect(() => {
         return subscribeTimeBoxes(setTimeBoxes);
     }, []);
+
+    if (!eventInfo) {
+        return <div>Loading event info...</div>;
+    }
 
     return (
         <div id="whenify">
@@ -104,7 +104,7 @@ export function Whenify({ eventInfo, currentUser }) {
             </div>
             <div id="middle-padding"></div>
             <div id="event-info-container">
-                <p id="eventTitle"> {eventInfo.name}</p>
+                <p id="eventTitle">{eventInfo.name}</p>
                 <p id="organizerName">Organized by {eventInfo.organizer}</p>
                 <p id="description">{eventInfo.description}</p>
             </div>
