@@ -8,21 +8,28 @@ import { Edit } from './edit/edit';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { Whenify } from './whenify/whenify';
+import { AppContext } from "./context/AppContext";
 
 export default function App() {
     const [currentUser, setCurrentUser] = useState(null);
-    const [eventInfo, setEventInfo] = useState(() => {
-        const stored = localStorage.getItem("eventInfo");
-        return stored
-            ? JSON.parse(stored)
-            : {
-                name: "Event Name",
-                organizer: "Organizer Name",
-                description: "Event Description",
-                latitude: 0,
-                longitude: 0
-            };
-    });
+    const [eventInfo, setEventInfo] = useState(null);
+
+    useEffect(() => {
+        async function loadEventInfo() {
+            try {
+                const res = await fetch('/api/eventInfo', { credentials: 'include' });
+                if (!res.ok) throw new Error(`Failed to load: ${res.status}`);
+                const data = await res.json();
+                setEventInfo(data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        if (currentUser) {
+            loadEventInfo();
+        }
+    }, [currentUser]);
 
     useEffect(() => {
         connect();
@@ -30,46 +37,48 @@ export default function App() {
         fetch("/api/auth/me", { credentials: "include" })
             .then(res => res.ok ? res.json() : null)
             .then(data => {
-                if (data?.user) {
+                if (data?.user && data.user !== currentUser) {
                     setCurrentUser(data.user);
                 }
             });
     }, []);
 
     return (
+        <AppContext.Provider value={{
+            currentUser,
+            setCurrentUser,
+            eventInfo,
+            setEventInfo
+        }}>
             <div className="page">
                 <header>
                     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                         <div className="container-fluid">
-                            <NavLink className="navbar-brand fs-3" to="/">Whenify </NavLink>
+                            <NavLink className="navbar-brand fs-3" to="/">Whenify</NavLink>
                             <ul className="navbar-nav ms-auto">
                                 <li className="nav-item dropdown">
                                     {currentUser && (
                                         <>
-                                        <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                           data-bs-toggle="dropdown" aria-expanded="false">
-                                            {currentUser}
-                                        </a>
-                                        <ul className="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <NavLink className="dropdown-item" to="edit">
-                                                    Edit
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    className="dropdown-item"
-                                                    to="login"
-                                                    onClick={() => {
-                                                        localStorage.removeItem("currentUser");
-                                                        setCurrentUser(null);
-                                                    }
-                                                }
-                                                >
-                                                    Log out
-                                                </NavLink>
-                                            </li>
-                                        </ul>
+                                            <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                               data-bs-toggle="dropdown">
+                                                {currentUser}
+                                            </a>
+                                            <ul className="dropdown-menu dropdown-menu-end">
+                                                <li>
+                                                    <NavLink className="dropdown-item" to="edit">
+                                                        Edit
+                                                    </NavLink>
+                                                </li>
+                                                <li>
+                                                    <NavLink
+                                                        className="dropdown-item"
+                                                        to="login"
+                                                        onClick={() => setCurrentUser(null)}
+                                                    >
+                                                        Log out
+                                                    </NavLink>
+                                                </li>
+                                            </ul>
                                         </>
                                     )}
                                 </li>
@@ -80,11 +89,43 @@ export default function App() {
 
                 <main className="content">
                     <Routes>
-                        <Route path="/" element={currentUser ? <Whenify eventInfo={eventInfo} currentUser={currentUser}/> : <Navigate to="/login" replace />}/>
-                        <Route path='/edit' element={currentUser ? <Edit eventInfo = {eventInfo} setEventInfo = {setEventInfo} setCurrentUser={setCurrentUser}/> : <Navigate to="/login" replace />} />
-                        <Route path='/login' element={!currentUser ? <Login setCurrentUser = { setCurrentUser } /> : <Navigate to="/" replace />} />
-                        <Route path='/register' element={!currentUser ? <Register setCurrentUser = { setCurrentUser } /> : <Navigate to="/" replace />} />
-                        <Route path='*' element={<NotFound />} />
+                        <Route
+                            path="/"
+                            element={
+                                currentUser && eventInfo
+                                    ? <Whenify />
+                                    : <Navigate to="/login" replace />
+                            }
+                        />
+
+                        <Route
+                            path="/edit"
+                            element={
+                                currentUser
+                                    ? <Edit />
+                                    : <Navigate to="/login" replace />
+                            }
+                        />
+
+                        <Route
+                            path="/login"
+                            element={
+                                !currentUser
+                                    ? <Login />
+                                    : <Navigate to="/" replace />
+                            }
+                        />
+
+                        <Route
+                            path="/register"
+                            element={
+                                !currentUser
+                                    ? <Register />
+                                    : <Navigate to="/" replace />
+                            }
+                        />
+
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>
 
@@ -93,6 +134,7 @@ export default function App() {
                     <a href="https://github.com/garrett-webster">My GitHub page</a>
                 </footer>
             </div>
+        </AppContext.Provider>
     );
 }
 
