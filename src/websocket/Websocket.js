@@ -2,7 +2,9 @@ let socket;
 let handlers = [];
 
 export function connect() {
-    socket = new WebSocket(`ws://localhost:4000`);
+    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    const host = window.location.host;
+    socket = new WebSocket(`${protocol}://${host}/ws`);
 
     socket.onopen = () => {
         console.log("WebSocket connected");
