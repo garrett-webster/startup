@@ -4,8 +4,8 @@ let eventInfo = {
     name: "Event Name",
     description: "Event Description",
     organizer: "Organizer Name",
-    latitude: 0,
-    longitude: 0
+    latitude: 40.233845,
+    longitude: -111.658531
 }
 
 async function getEventInfo(token) {
