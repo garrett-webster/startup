@@ -37,8 +37,8 @@ export default function App() {
         fetch("/api/auth/me", { credentials: "include" })
             .then(res => res.ok ? res.json() : null)
             .then(data => {
-                if (data?.user && data.user !== currentUser) {
-                    setCurrentUser(data.user);
+                if (data?.msg && data.msg !== currentUser) {
+                    setCurrentUser(data.msg);
                 }
             });
     }, []);
