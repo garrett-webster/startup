@@ -43,6 +43,14 @@ export default function App() {
             });
     }, []);
 
+    function logout() {
+        fetch('/api/auth/logout', {
+            method: 'POST',
+            credentials: "include"
+        })
+            .then(res => res.ok ? setCurrentUser(null) : console.log(res))
+    }
+
     return (
         <AppContext.Provider value={{
             currentUser,
@@ -73,7 +81,7 @@ export default function App() {
                                                     <NavLink
                                                         className="dropdown-item"
                                                         to="login"
-                                                        onClick={() => setCurrentUser(null)}
+                                                        onClick={logout}
                                                     >
                                                         Log out
                                                     </NavLink>

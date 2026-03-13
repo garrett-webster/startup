@@ -45,6 +45,18 @@ async function loginUser(name, password) {
     throw new UnauthorizedException("Unauthorized");
 }
 
+async function logoutUser(token) {
+    users = users.map(user => {
+        if (user.token === token) {
+            return {
+                ...user,
+                token: null
+            }
+        }
+        return user
+    })
+}
+
 async function validateToken(token) {
     if (!token) throw new UnauthorizedException("Unauthorized");
 
@@ -67,5 +79,6 @@ module.exports = {
     validateToken,
     createUser,
     loginUser,
+    logoutUser,
     getMe
 };
