@@ -1,9 +1,9 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const {createUserHandler, loginUserHandler, getMeHandler, logoutUserHandler} = require("./handlers/authHandlers");
+const {createUserHandler, loginUserHandler, getMeHandler, logoutUserHandler} = require("./authHandlers");
 const {configureWebSocket} = require("./websocket");
 const http = require('http');
-const {updateEventInfoHandler, getEventInfoHandler} = require("./handlers/eventInfoHandlers");
+const {updateEventInfoHandler, getEventInfoHandler} = require("./eventInfoHandlers");
 
 const app = express();
 app.use(express.json());

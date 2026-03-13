@@ -1,4 +1,4 @@
-const { createUser, loginUser, getMe, logoutUser} = require("../authService");
+const { createUser, loginUser, getMe, logoutUser} = require("./authService");
 
 
 const authCookieName = 'token';

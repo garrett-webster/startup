@@ -1,4 +1,4 @@
-const { getEventInfo, updateEventInfo} = require("../eventInfoService");
+const { getEventInfo, updateEventInfo} = require("./eventInfoService");
 
 
 async function getEventInfoHandler(req, res) {
