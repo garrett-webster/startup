@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './edit.css';
-import { useNavigate } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 
 export function Edit() {
-    const { eventInfo, setEventInfo, setCurrentUser } = useApp();
-    const navigate = useNavigate();
+    const { eventInfo, setEventInfo } = useApp();
 
     const [form, setForm] = useState({
         name: "",
@@ -133,18 +131,6 @@ export function Edit() {
                                     )
                                 }
                             />
-
-                            <button
-                                type="button"
-                                id="clearButton"
-                                onClick={() => {
-                                    setCurrentUser(null);
-                                    navigate("/login");
-                                }}
-                            >
-                                Log Out
-                            </button>
-
                             <input type="submit" value="Save"/>
                         </div>
 
