@@ -17,7 +17,7 @@ app.use(`/api`, apiRouter);
 
 configureWebSocket(server);
 
-const port = process.argv.length > 2 ? process.argv[2] : 3000;
+const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 apiRouter.post('/auth/create', createUserHandler);
 apiRouter.post('/auth/login', loginUserHandler);
