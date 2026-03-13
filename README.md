@@ -104,12 +104,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [X] **Node.js/Express HTTP service** - Done
+- [X] **Static middleware for frontend** - Done
+- [X] **Calls to third party endpoints** - Open Meteo used to get weather conditions on a specific day at the latitude and longitude specified in the edit page.
+- [X] **Backend service endpoints** - Authentication, and eventInfo endpoints (note that I also went and implemented websocket for the timeBoxes and voting.)
+- [X] **Frontend calls service endpoints** - Frontend calls corresponding to the above endpoints (as well as websocket communication) 
+- [X] **Supports registration, login, logout, and restricted endpoint** - The /auth/me, /auth/logout, and the /eventInfo endpoints require a user to be signed in.
 
 
 ## 🚀 DB deliverable
