@@ -15,6 +15,10 @@ const server = http.createServer(app);
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+app.use((_req, res) => {
+    res.sendFile('index.html', { root: 'public' });
+});
+
 configureWebSocket(server);
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
