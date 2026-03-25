@@ -3,16 +3,35 @@ const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
-const db = client.db('whenify');
-const userCollection = db.collection('user');
-const eventInfoCollection = db.collection('eventInfo')
-const timeBoxCollection = db.collection('timeBox')
 
-// This will asynchronously test the connection and exit the process if it fails
-(async function testConnection() {
+
+let db;
+let userCollection;
+let eventInfoCollection;
+let timeBoxCollection;
+
+(async function initialize() {
     try {
+        await client.connect();
+        db = client.db('whenify');
+        userCollection = db.collection('user');
+        eventInfoCollection = db.collection('eventInfo');
+        timeBoxCollection = db.collection('timeBox');
         await db.command({ ping: 1 });
-        console.log(`Connect to database`);
+        console.log('Connected to database');
+
+        const existing = await eventInfoCollection.findOne({});
+        if (!existing) {
+            await eventInfoCollection.insertOne({
+                    name: "Event Name",
+                    description: "Event Description",
+                    organizer: "Organizer Name",
+                    latitude: 40.233845,
+                    longitude: -111.658531
+                }
+            );
+            console.log('Seeded eventInfo');
+        }
     } catch (ex) {
         console.log(`Unable to connect to database with ${url} because ${ex.message}`);
         process.exit(1);
