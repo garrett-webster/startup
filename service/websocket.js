@@ -1,16 +1,17 @@
 const WebSocket = require('ws');
-const {handleTimeBoxesMessage, getTimeBoxes} = require("./timeBoxService");
+const {handleTimeBoxesMessage } = require("./timeBoxService");
+const {getAllTimeBoxes} = require("./database");
 
 let clients = [];
 
 function configureWebSocket(server) {
     const wss = new WebSocket.Server({ server });
 
-    wss.on('connection', (ws) => {
+    wss.on('connection', async (ws) => {
         clients.push(ws);
         ws.send(JSON.stringify({
             type: "timeboxes.updated",
-            data: getTimeBoxes()
+            data: await getAllTimeBoxes ()
         }));
 
         ws.on('message', async (data) => {
