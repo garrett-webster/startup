@@ -13,11 +13,11 @@ function configureWebSocket(server) {
             data: getTimeBoxes()
         }));
 
-        ws.on('message', (data) => {
+        ws.on('message', async (data) => {
             const message = JSON.parse(data);
 
             if (message.type.startsWith("timeboxes")) {
-                handleTimeBoxesMessage(message, broadcast);
+                await handleTimeBoxesMessage(message, broadcast);
             }
         });
 

@@ -13,7 +13,7 @@ async function handleTimeBoxesMessage(message, broadcast) {
 
 async function addTimebox(box, broadcast) {
     await insertTimeBox(box);
-    updateTimeBoxes(broadcast);
+    await updateTimeBoxes(broadcast);
 }
 
 async function updateTimeBoxes(broadcast) {
