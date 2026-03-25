@@ -5,6 +5,7 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db('whenify');
 const userCollection = db.collection('user');
+const eventInfoCollection = db.collection('eventInfo')
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -29,8 +30,18 @@ async function updateUser(field, value, user) {
     await userCollection.updateOne({ [field]: value}, { $set: user})
 }
 
+async function fetchEventInfo() {
+    return eventInfoCollection.findOne({});
+}
+
+async function setEventInfo(info) {
+    await eventInfoCollection.replaceOne({}, info, { upsert: true });
+}
+
 module.exports = {
     getUser,
     insertUser,
-    updateUser
+    updateUser,
+    fetchEventInfo,
+    setEventInfo
 }
