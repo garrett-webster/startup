@@ -6,6 +6,7 @@ const client = new MongoClient(url);
 const db = client.db('whenify');
 const userCollection = db.collection('user');
 const eventInfoCollection = db.collection('eventInfo')
+const timeBoxCollection = db.collection('timeBox')
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -38,10 +39,25 @@ async function setEventInfo(info) {
     await eventInfoCollection.replaceOne({}, info, { upsert: true });
 }
 
+async function getAllTimeBoxes() {
+    return timeBoxCollection.find({}).toArray();
+}
+
+async function setTimeBox(id, box) {
+    await timeBoxCollection.updateOne({ id : id}, { $set: box})
+}
+
+async function insertTimeBox(box) {
+    await timeBoxCollection.insertOne(box);
+}
+
 module.exports = {
     getUser,
     insertUser,
     updateUser,
     fetchEventInfo,
-    setEventInfo
+    setEventInfo,
+    getAllTimeBoxes,
+    insertTimeBox,
+    setTimeBox
 }
