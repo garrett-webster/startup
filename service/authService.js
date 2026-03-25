@@ -1,13 +1,14 @@
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const {UserAlreadyExistsException, UnauthorizedException} = require("./exceptions");
+const {getUser, insertUser} = require("./database");
 
 let users = [];
 
 async function findUser(field, value) {
     if (!value) return null;
 
-    return users.find((u) => u[field] === value);
+    return getUser(field, value);
 }
 
 async function saveUser(name, password) {
@@ -18,9 +19,7 @@ async function saveUser(name, password) {
         password: passwordHash,
         token: uuid.v4(),
     };
-    users.push(user);
-
-    console.log(users);
+    await insertUser(user)
     return user;
 }
 

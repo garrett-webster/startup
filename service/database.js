@@ -5,7 +5,6 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db('whenify');
 const userCollection = db.collection('user');
-const scoreCollection = db.collection('score');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -17,3 +16,16 @@ const scoreCollection = db.collection('score');
         process.exit(1);
     }
 })();
+
+function getUser(field, value) {
+    return userCollection.findOne({ [field]: value })
+}
+
+async function insertUser(user) {
+    await userCollection.insertOne(user);
+}
+
+module.exports = {
+    getUser,
+    insertUser
+}
