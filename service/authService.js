@@ -1,9 +1,7 @@
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const {UserAlreadyExistsException, UnauthorizedException} = require("./exceptions");
-const {getUser, insertUser} = require("./database");
-
-let users = [];
+const {getUser, insertUser, updateUser} = require("./database");
 
 async function findUser(field, value) {
     if (!value) return null;
@@ -33,10 +31,11 @@ async function createUser(name, password) {
 }
 
 async function loginUser(name, password) {
-    const user = await findUser('name', name);
+    const user = await getUser('name', name);
     if (user) {
         if (await bcrypt.compare(password, user.password)) {
             user.token = uuid.v4();
+            await updateUser('name', name, { token: user.token });
             return user.token;
         }
     }
@@ -45,15 +44,11 @@ async function loginUser(name, password) {
 }
 
 async function logoutUser(token) {
-    users = users.map(user => {
-        if (user.token === token) {
-            return {
-                ...user,
-                token: null
-            }
-        }
-        return user
-    })
+    let user = await getUser("token", token)
+
+    if (user) {
+        await updateUser("token", token, { token: null });
+    }
 }
 
 async function validateToken(token) {

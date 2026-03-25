@@ -25,7 +25,12 @@ async function insertUser(user) {
     await userCollection.insertOne(user);
 }
 
+async function updateUser(field, value, user) {
+    await userCollection.updateOne({ [field]: value}, { $set: user})
+}
+
 module.exports = {
     getUser,
-    insertUser
+    insertUser,
+    updateUser
 }
