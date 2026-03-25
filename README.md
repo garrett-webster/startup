@@ -116,15 +116,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable.
+- [X] **Stores data in MongoDB** - All data is stored in mongodb, across three different collections. One for authentication/user data, one for event info, and one for timeboxes
+- [X] **Stores credentials in MongoDB** - See above. All authentication checking is done via querying the mongodb
 
 ## 🚀 WebSocket deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [X] **Backend listens for WebSocket connection** - Done.
+- [X] **Frontend makes WebSocket connection** - Done.
+- [X] **Data sent over WebSocket connection** - Voting and timebox info is sent over WebSocket in real time to all connected clients.
+- [X] **WebSocket data displayed** - Votes and new timeboxes show up in real time.
+- [X] **Application is fully functional** - All mocking behavior has been removed, and all functionality is extant, using the DB as the source of truth for both http endpoints and ws endpoints.
