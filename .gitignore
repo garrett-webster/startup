@@ -1,2 +1,3 @@
 deployService.sh
 node_modules
+dbConfig.json
